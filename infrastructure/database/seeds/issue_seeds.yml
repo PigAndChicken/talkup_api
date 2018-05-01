@@ -1,13 +1,10 @@
 ---
 - name: 'issue one'
   description: 'testing'
-  process: 1
-  create_time: NULL
   deadline: NULL
   section: 2
 - name: 'issue two'
   description: 'testing'
   process: 2
-  create_time: NULL
   deadline: NULL
   section: 1

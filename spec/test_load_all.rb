@@ -1,51 +1,21 @@
-
 require_relative '../init.rb'
 
-def encode(content)
-    Base64.strict_encode64(content)
+require 'rack/test'
+require 'hirb'
+
+include Rack::Test::Methods
+
+Hirb.enable
+
+old_print = Pry.config.print
+Pry.config.print = proc do |*args|
+  Hirb::View.view_or_page_output(args[1]) || old_print.call(*args)
 end
 
-FEEDBACK_INFO1 = {
-    :id => 1,
-    :description => 'like'
-}
-FEEDBACK_INFO2 = {
-    :id => 2,
-    :description => 'confusing'
-}
-
-FEEDBACK_like = TalkUp::Entity::Feedback.new(FEEDBACK_INFO1)
-FEEDBACK_confusing = TalkUp::Entity::Feedback.new(FEEDBACK_INFO2)
-
-COMMENT_INFO = {
-    :content => 'I like this!',
-    :create_time => nil,
-    :update_time => nil,
-    :feedback => [FEEDBACK_like]
-
-}
-
-COMMENT_INFO2 = {
-    :content => 'I dont agree this!',
-    :create_time => nil,
-    :update_time => nil,
-    :feedback => [FEEDBACK_confusing]
-}
-
-COMMENT = TalkUp::Entity::Comment.new(COMMENT_INFO)
-COMMENT2 = TalkUp::Entity::Comment.new(COMMENT_INFO2)
-
-COMMENTS = [COMMENT, COMMENT2]
-DESCRIPTION = encode('testing')
-ISSUE_INFO = {
-    :title => 'issue_one',
-    :description_secure => DESCRIPTION,
-    :process => 1,
-    :create_time => nil,
-    :update_time => nil,
-    :deadline => nil,
-    :section => 2,
-    :comments => COMMENTS
-}
+def app
+    TalkUp::Api
+end
 
 
+ISSUES_DATA = YAML.safe_load File.read('./infrastructure/database/seeds/issue_seeds.yml')
+COMMENTS_DATA = YAML.safe_load File.read('./infrastructure/database/seeds/comment_seeds.yml')

@@ -1,8 +1,5 @@
 require 'dry-types'
 
-
-
-
 module TalkUp
     module Entity
 
