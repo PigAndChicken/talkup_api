@@ -6,6 +6,8 @@ module TalkUp
         plugin :json
         plugin :multi_route
 
+        require_relative './issue.rb'        
+
         route do |routing|
             app = Api
 
