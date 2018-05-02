@@ -5,9 +5,8 @@
 
 Our API is rooted at /api/v0.1/ and has the following subroutes:
    
-* `GET transaction/t_id ` - Get the details of a transaction. 
-* `POST transaction` - Post the transaction into database.
-* `GET transactions` - Get the id of all transaction.
+* `GET issue/issue_id ` - Get the details of a issue. 
+* `GET issues` - Get the id of all issues.
 
 ### Install
 Install this API by cloning the relevant branch and installing required gems from Gemfile.lock:
