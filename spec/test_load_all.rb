@@ -22,9 +22,15 @@ DATA[:issues] = YAML.safe_load File.read('./infrastructure/database/seeds/issue_
 DATA[:comments] = YAML.safe_load File.read('./infrastructure/database/seeds/comment_seeds.yml')
 
 ISSUE_ONE = {
+    :id => nil,
     :title_secure => SecureDB.encrypt(DATA[:issues][0]['name']),
     :description_secure => SecureDB.encrypt(DATA[:issues][0]['description']),
-    :section => DATA[:issues][0]['section']
+    :section => DATA[:issues][0]['section'],
+    :process => nil,
+    :deadline => nil,
+    :create_time => nil,
+    :update_time => nil,
+    :comments => nil
 }
 
 ISSUE_TWO = {

@@ -10,12 +10,15 @@ module TalkUp
 
         class Comment < Dry::Struct
             
-            attribute :content, Types::Strict::String
+            attribute :content_secure, Types::Strict::String
             attribute :create_time, Types::Strict::DateTime.optional
             attribute :update_time, Types::Strict::DateTime.optional
 
             attribute :feedback, Types::Strict::Array.member(Entity::Feedback)
 
+            def content
+                SecureDB.decrypt(content_secure)
+            end
 
         end 
     end

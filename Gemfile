@@ -10,6 +10,7 @@ gem 'puma'
 
 #Data Representer 
 gem 'json'
+gem 'roar'
 
 #Security
 gem 'rbnacl-libsodium'

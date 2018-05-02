@@ -20,6 +20,7 @@ module TalkUp
                 # /api/v0.1
                 routing.on 'v0.1' do
 
+                    routing.multi_route
                 end
             end
         end

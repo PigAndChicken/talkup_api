@@ -1,4 +1,5 @@
 require 'dry-types'
+require_relative '../../lib/secure_db.rb'
 
 module TalkUp
     module Entity
