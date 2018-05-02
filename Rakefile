@@ -1,11 +1,13 @@
- 
-task :spec do
-   ruby "./spec/*_spec.rb"
+require 'rake/testtask' 
+
+desc 'Run all the tests'
+Rake::TestTask.new(:spec) do |t|
+  t.pattern = 'specs/*_spec.rb'
+  t.warning = false
 end
 
-
 task :console do
-    sh 'pry -r ./spec/test_load_all'
+    sh 'pry -r ./specs/test_load_all'
 end
 
 
@@ -18,6 +20,16 @@ namespace :newkey do
 end
 
 
+namespace :config do
+    require_relative './config/environments.rb'
+
+    app = TalkUp::Api
+    task :env_var do
+        puts "env: #{app.environment}"
+        puts "db_filename: #{app.config.DB_FILENAME}"
+    end
+end
+
 namespace :db do
     require 'sequel'
 
@@ -29,7 +41,7 @@ namespace :db do
     desc 'Run Migration'
     task :migrate do 
         puts "Migration #{app.environment} database to lastest"
-        Sequel::Migrator.run(app.DB, 'infrastructure/database/migrations', allow_missing_migration_files: true)
+        Sequel::Migrator.run(app.DB, 'infrastructure/database/migrations')
     end
 
     desc "Prints current schema version"
@@ -41,15 +53,15 @@ namespace :db do
     end
 
     desc 'Drop all table'
-    task :drop do
+    task :delete do
         require_relative './config/environments.rb'
 
-        app.DB.drop_table :issues
-        app.DB.drop_table :comments
+        app.DB[:issues].delete
+        app.DB[:comments].delete 
     end
 
     desc 'Reset Database'
-    task reset: [:drop, :migrate]
+    task reset: [:delete, :migrate]
     
     desc 'Delete dev or test database file'
     task :wipe do

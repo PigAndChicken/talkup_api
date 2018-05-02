@@ -24,6 +24,11 @@ module TalkUp
             def title
                 SecureDB.decrypt(title_secure)
             end
+
+            def plaintext
+                Issue_plaintext.new(title, description, deadline, process, section)
+            end
+
         end 
     end
 end

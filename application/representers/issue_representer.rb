@@ -1,8 +1,12 @@
 module TalkUp
 
     class IssueRepresenter < Roar::Decorator
-        include Roar::Json
+        include Roar::JSON
 
-        property :id
+        property :title
+        property :description
+        property :deadline
+        property :process
+        property :section
     end
 end

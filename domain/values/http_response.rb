@@ -1,3 +1,3 @@
 module TalkUp
-    Http_response = Struct.new :code, :message
+    Result = Struct.new :code, :message
 end

@@ -1,3 +1,5 @@
+
+
 module TalkUp
 
     class Api < Roda
@@ -5,7 +7,8 @@ module TalkUp
         route('issues') do |routing|
 
             routing.get do
-                {'message' => 'issue get route!'}
+                result = FindIssuesIndex.all
+                representer_response(result, IssuesRepresenter) { Issues.new(result.value.message) }
             end
 
         end
@@ -15,7 +18,8 @@ module TalkUp
             routing.on String do |issue_id|
 
                 routing.get do
-                    {'message' => "#{issue_id}"}
+                    result = FindIssueDetail.find_by(issue_id)
+                    representer_response(result, IssueRepresenter)
                 end
             end
         end

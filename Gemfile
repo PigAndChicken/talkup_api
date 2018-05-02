@@ -11,6 +11,11 @@ gem 'puma'
 #Data Representer 
 gem 'json'
 gem 'roar'
+gem 'multi_json'
+
+#Services
+gem 'dry-monads'
+gem 'dry-transaction'
 
 #Security
 gem 'rbnacl-libsodium'
