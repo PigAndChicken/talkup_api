@@ -6,10 +6,7 @@ module TalkUp
             extend Repo
             
             #create
-            def self.create_by(username, issue_id, entity)
-                account = Database::AccountOrm.first(username: username)
-                issue = Database::IssueOrm.first(id: issue_id)
-                
+            def self.create_by(account, issue, entity)
                 comment = Database::CommentOrm.new(entity.to_h)
                 comment.commenter = account
                 comment.issue = issue
@@ -18,13 +15,17 @@ module TalkUp
                 rebuild_entity(comment)
             end
 
+            #read
+            def self.all_with(issue_id)
+                Database::CommentOrm.where(issue_id: issue_id).map do |comment|
+                    rebuild_entity(comment)
+                end
+            end
+
             #update
-            def self.update(issue_id, comment_id,, entity)
-                issue = Database::IssueOrm.first(id: issue_id)
+            def self.update(comment_id, entity)
                 comment = Database::CommentOrm.first(id: comment_id)
-                
                 comment.update(entity.to_h)
-                comment.issue = issue
                 comment.save
             end
 

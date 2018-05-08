@@ -1,6 +1,3 @@
-require_relative './comment_repo.rb'
-require_relative './account_repo.rb'
-
 module TalkUp
 
     module Repo
@@ -8,12 +5,17 @@ module TalkUp
         class Issue
             extend Repo
             
+
+
             #create
-            def self.create(entity)
+            def self.create_by(account, entity)
                 db_issue = Database::IssueOrm.create(entity.to_h)
 
+                db_issue.owner = account
                 rebuild_entity(db_issue)
             end
+
+            
             #read
             def self.all
                 Database::IssueOrm.all.map { |db_issue| rebuild_entity(db_issue) }

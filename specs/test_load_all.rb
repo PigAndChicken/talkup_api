@@ -30,7 +30,7 @@ end
 
 include TalkUp
 
-  
+
 VIC = Database::AccountOrm.create(DATA[:accounts][0])
 ISSUE = Database::IssueOrm.create(DATA[:issues][0])
 COMMENT = Database::CommentOrm.create(DATA[:comments][0])
@@ -45,7 +45,7 @@ VIC.add_comment(COMMENT)
 ISSUE.add_comment(COMMENT)
 
 FEEDBACK = Database::FeedbackOrm.new
-FEEDBACK.account=VIC
+FEEDBACK.commenter=VIC
 FEEDBACK.comment=COMMENT
 FEEDBACK.description=FE_DESC[0]
 FEEDBACK.save

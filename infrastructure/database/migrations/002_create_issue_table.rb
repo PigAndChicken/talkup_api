@@ -4,7 +4,7 @@ Sequel.migration do
     change do 
         create_table(:issues) do
             uuid :id, primary_key: true
-            foreign_key :owner_id, table: :accounts
+            foreign_key :owner_id, table: :accounts, type: 'varchar(100)'
 
             String :title_secure, uniqle: true, null: false
             String :description_secure, null: false
