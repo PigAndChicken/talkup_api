@@ -1,17 +1,16 @@
+require_relative './comment_repo.rb'
+require_relative './account_repo.rb'
+
 module TalkUp
 
     module Repo
 
         class Issue
+            extend Repo
             
             #create
             def self.create(entity)
-                db_issue = Database::IssueOrm.create(
-                    title_secure: entity.title_secure,
-                    description_secure: entity.description_secure,
-                    section: entity.section,
-                    deadline: entity.deadline
-                )
+                db_issue = Database::IssueOrm.create(entity.to_h)
 
                 rebuild_entity(db_issue)
             end
@@ -38,17 +37,19 @@ module TalkUp
 
             def self.rebuild_entity(db_record)
                 return nil unless db_record
+                elements = rebuild_elements(db_record)
 
                 Entity::Issue.new(
                     id: db_record.id,
-                    title_secure: db_record.title_secure,
-                    description_secure: db_record.description_secure,
+                    title: db_record.title,
+                    description: db_record.description,
                     process: db_record.process,
                     section: db_record.section,
                     deadline: db_record.deadline,
-                    comments: db_record.comments,
-                    create_time: db_record.created_at,
-                    update_time: db_record.updated_at
+                    owner: elements[:owner],
+                    comments: elements[:comments],
+                    created_at: db_record.created_at,
+                    updated_at: db_record.updated_at
                 )
             end
         end

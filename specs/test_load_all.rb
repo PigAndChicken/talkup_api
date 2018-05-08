@@ -3,6 +3,7 @@ require_relative '../init.rb'
 require 'rack/test'
 require 'hirb'
 require 'pry'
+require 'facets'
 
 include Rack::Test::Methods
 
@@ -20,26 +21,31 @@ end
 DATA = {}
 DATA[:issues] = YAML.safe_load File.read('./infrastructure/database/seeds/issue_seeds.yml')
 DATA[:comments] = YAML.safe_load File.read('./infrastructure/database/seeds/comment_seeds.yml')
+DATA[:accounts] = YAML.safe_load File.read('./infrastructure/database/seeds/account_seeds.yml')
+DATA[:feedback_description] = YAML.safe_load File.read('./infrastructure/database/seeds/feedback_description_seeds.yml')
 
-ISSUE_ONE = {
-    :id => nil,
-    :title_secure => SecureDB.encrypt(DATA[:issues][0]['name']),
-    :description_secure => SecureDB.encrypt(DATA[:issues][0]['description']),
-    :section => DATA[:issues][0]['section'],
-    :process => nil,
-    :deadline => nil,
-    :create_time => nil,
-    :update_time => nil,
-    :comments => nil
-}
+DATA.each_key do |key|
+  DATA[key].map {|element| element.symbolize_keys!}
+end
 
-ISSUE_TWO = {
-    :title_secure => SecureDB.encrypt(DATA[:issues][1]['name']),
-    :description_secure => SecureDB.encrypt(DATA[:issues][1]['description']),
-    :section => DATA[:issues][1]['section'],
-    :process => DATA[:issues][1]['process']
-}
+include TalkUp
 
-COMMENT_ONE = {
-    :content_secure => SecureDB.encrypt(DATA[:comments][0]['content']),   
-}
+  
+VIC = Database::AccountOrm.create(DATA[:accounts][0])
+ISSUE = Database::IssueOrm.create(DATA[:issues][0])
+COMMENT = Database::CommentOrm.create(DATA[:comments][0])
+FE_DESC =  DATA[:feedback_description].map do |desc|
+  Database::FeedbackDescriptionOrm.create(desc)
+end
+
+VIC.add_owned_issue(ISSUE)
+VIC.add_collaboration(ISSUE)
+
+VIC.add_comment(COMMENT)
+ISSUE.add_comment(COMMENT)
+
+FEEDBACK = Database::FeedbackOrm.new
+FEEDBACK.account=VIC
+FEEDBACK.comment=COMMENT
+FEEDBACK.description=FE_DESC[0]
+FEEDBACK.save

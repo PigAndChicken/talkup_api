@@ -1,8 +1,6 @@
-require 'base64'
-require 'json'
-require 'rbnacl/libsodium'
 require 'dry-struct'
 
+require_relative './account.rb'
 require_relative './feedback.rb'
 
 module TalkUp
@@ -10,15 +8,12 @@ module TalkUp
 
         class Comment < Dry::Struct
             
-            attribute :content_secure, Types::Strict::String
-            attribute :create_time, Types::Strict::DateTime.optional
-            attribute :update_time, Types::Strict::DateTime.optional
+            attribute :content, Types::Strict::String
+            attribute :created_at, Types::Strict::Time.optional
+            attribute :updated_at, Types::Strict::Time.optional
 
-            attribute :feedback, Types::Strict::Array.member(Entity::Feedback)
-
-            def content
-                SecureDB.decrypt(content_secure)
-            end
+            attribute :commenter, Entity::Account.optional
+            #attribute :feedback, Types::Strict::Array.member(Entity::Feedback)
 
         end 
     end

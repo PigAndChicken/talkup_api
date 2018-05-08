@@ -1,10 +1,10 @@
 ---
-- name: 'issue one'
+- 
+  title: 'issue one'
   description: 'testing'
-  deadline: NULL
   section: 2
-- name: 'issue two'
+- 
+  title: 'issue two'
   description: 'testing'
   process: 2
-  deadline: NULL
   section: 1

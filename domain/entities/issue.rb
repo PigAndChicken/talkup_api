@@ -1,5 +1,6 @@
 require 'dry-struct'
 require_relative './comment.rb'
+require_relative './account.rb'
 
 module TalkUp
     module Entity
@@ -7,27 +8,16 @@ module TalkUp
         class Issue < Dry::Struct
 
             attribute :id, Types::Strict::String.optional
-            attribute :title_secure, Types::Strict::String
-            attribute :description_secure, Types::Strict::String
+            attribute :title, Types::Strict::String
+            attribute :description, Types::Strict::String
             attribute :process, Types::Strict::Int.default(1)
-            attribute :create_time, Types::Strict::Time.optional
-            attribute :update_time, Types::Strict::Time.optional
+            attribute :created_at, Types::Strict::Time.optional
+            attribute :updated_at, Types::Strict::Time.optional
             attribute :deadline, Types::Strict::Time.optional
             attribute :section, Types::Strict::Int
             
+            attribute :owner, Entity::Account
             attribute :comments, Types::Strict::Array.member(Entity::Comment).optional
-
-            def description
-                SecureDB.decrypt(description_secure)
-            end
-
-            def title
-                SecureDB.decrypt(title_secure)
-            end
-
-            def plaintext
-                Issue_plaintext.new(title, description, deadline, process, section)
-            end
 
         end 
     end

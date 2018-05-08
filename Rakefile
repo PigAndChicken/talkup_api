@@ -55,9 +55,13 @@ namespace :db do
     desc 'Drop all table'
     task :delete do
         require_relative './config/environments.rb'
-
+    
+        app.DB[:feedbacks].delete
+        app.DB[:feedback_descriptions].delete
+        app.DB[:comments].delete
+        app.DB[:accounts_issues].delete
         app.DB[:issues].delete
-        app.DB[:comments].delete 
+        app.DB[:accounts].delete
     end
 
     desc 'Reset Database'
