@@ -8,12 +8,13 @@ module TalkUp
 
         class Comment < Dry::Struct
             
+            attribute :id, Types::Strict::String
             attribute :content, Types::Strict::String
             attribute :created_at, Types::Strict::Time.optional
             attribute :updated_at, Types::Strict::Time.optional
 
             attribute :commenter, Entity::Account.optional
-            attribute :feedback, Types::Strict::Array.member(Entity::Feedback)
+            attribute :feedbacks, Types::Strict::Array.member(Entity::Feedback)
 
         end 
     end

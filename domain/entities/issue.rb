@@ -17,6 +17,7 @@ module TalkUp
             attribute :section, Types::Strict::Int
             
             attribute :owner, Entity::Account
+            attribute :collaborators, Types::Strict::Array.member(Entity::Account).optional
             attribute :comments, Types::Strict::Array.member(Entity::Comment).optional
 
         end 

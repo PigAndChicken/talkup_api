@@ -9,12 +9,22 @@ module TalkUp
 
             #create
             def self.create_by(account, entity)
-                db_issue = Database::IssueOrm.create(entity.to_h)
-
+                db_issue = Database::IssueOrm.new(entity.to_h)
                 db_issue.owner = account
+                db_issue.save
                 rebuild_entity(db_issue)
             end
 
+            def self.add_collaborators(issue_id, collaborators)
+                db_issue = Database::IssueOrm.first(id: issue_id)
+                
+                collaborators.each do |collaborator|
+                    db_collaborator = Database::AccountOrm.where(collaborator).all[0]
+                    db_issue.add_collaborator(db_collaborator)
+                end
+
+                rebuild_entity(db_issue)
+            end
             
             #read
             def self.all
@@ -34,6 +44,11 @@ module TalkUp
                     return nil
                 end
             end
+            
+            #delete
+            def self.delete(issue_id)
+                Database::IssueOrm.first(id: issue_id).destroy
+            end
 
             
 
@@ -50,6 +65,7 @@ module TalkUp
                     deadline: db_record.deadline,
                     owner: elements[:owner],
                     comments: elements[:comments],
+                    collaborators: elements[:collaborators],
                     created_at: db_record.created_at,
                     updated_at: db_record.updated_at
                 )

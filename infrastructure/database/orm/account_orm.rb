@@ -3,10 +3,6 @@ module TalkUp
     module Database
 
         class AccountOrm < Sequel::Model(:accounts)
-            plugin :whitelist_security
-            plugin :timestamps, update_on_create: true
-            set_allowed_columns :username, :email, :password
-            
             one_to_many :owned_issues, class: :'TalkUp::Database::IssueOrm',
                         key: :owner_id
 
@@ -18,7 +14,7 @@ module TalkUp
                         key: :commenter_id
 
             one_to_many :feedbacks, class: :'TalkUp::Database::FeedbackOrm',
-                        key: :account_id
+                        key: :commenter_id
 
             plugin :whitelist_security
             set_allowed_columns :username, :email, :password

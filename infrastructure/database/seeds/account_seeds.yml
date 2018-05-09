@@ -1,5 +1,10 @@
 ---
-- username: 'VicXu'
+- username: 'Vic'
   email: 'xumingyo@gmail.com'
   password: 'mypassword'
-
+- username: 'Shelly'
+  email: 'shelly@gmail.com'
+  password: 'mypassword2'
+- username: 'SoumyaRay'
+  email: 'soumya@gmail.com'
+  password: 'mypassword3'

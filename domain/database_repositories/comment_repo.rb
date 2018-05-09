@@ -16,8 +16,8 @@ module TalkUp
             end
 
             #read
-            def self.all_with(issue_id)
-                Database::CommentOrm.where(issue_id: issue_id).map do |comment|
+            def self.find_by(col, value)
+                Database::CommentOrm.where({col => value}).all.map do |comment|
                     rebuild_entity(comment)
                 end
             end
@@ -40,8 +40,10 @@ module TalkUp
                 elements = rebuild_elements(db_record)
 
                 Entity::Comment.new(
+                    id: db_record.id,
                     content: db_record.content,
                     commenter: elements[:commenter],
+                    feedbacks: elements[:feedbacks],
                     created_at: db_record.created_at,
                     updated_at: db_record.updated_at
                 )
