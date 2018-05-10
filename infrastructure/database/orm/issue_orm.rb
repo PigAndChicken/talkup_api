@@ -21,6 +21,8 @@ module TalkUp
             plugin :association_dependencies, comments: :destroy, collaborators: :nullify
             plugin :timestamps, update_on_create: true
             plugin :uuid, field: :id
+            
+            plugin :validation_helpers
 
             def title=(title)
                 self.title_secure = SecureDB.encrypt(title)
@@ -36,6 +38,11 @@ module TalkUp
 
             def description
                 SecureDB.decrypt(description_secure)
+            end
+
+            def validate
+                super 
+                validates_presence [:title, :description]
             end
         end
     end

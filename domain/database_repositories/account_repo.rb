@@ -32,7 +32,11 @@ module TalkUp
             
             #create
             def self.create(entity)
-                db_account = Database::AccountOrm.create(entity.to_h)
+                begin
+                    db_account = Database::AccountOrm.create(entity.to_h)    
+                rescue => exception
+                    return { :account_errors => exception.errors.to_h }
+                end
                 rebuild_entity(db_account)
             end
 
@@ -43,7 +47,13 @@ module TalkUp
 
             #delete
             def self.delete(account_username)
-                Database::AccountOrm.first(username: account_username).destroy
+                db_account = Database::AccountOrm.first(username: account_username)
+                
+                if db_account == nil
+                    return nil
+                else
+                    db_account.destroy
+                end
             end
 
             def self.rebuild_entity(db_record)

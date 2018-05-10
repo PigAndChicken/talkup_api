@@ -5,6 +5,6 @@ module TalkUp
     class IssuesRepresenter < Roar::Decorator
         include Roar::JSON
 
-        collection :issues, extend: IndexRepresenter
+        collection :issues, extend: IssueRepresenter
     end
 end

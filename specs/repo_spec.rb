@@ -8,11 +8,10 @@ end
 describe 'Test all Repo' do 
 
     before do
-        
-        if TalkUp::Database::AccountOrm.all.empty?
-            TalkUp::Repo::Account.create(DATA[:accounts][0])
-            TalkUp::Repo::Account.create(DATA[:accounts][1])
-        end
+        vic = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][0][:username])[0]
+        shelly = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][1][:username])[0]
+        Repo::Account.create(DATA[:accounts][0]) if vic == nil
+        Repo::Account.create(DATA[:accounts][1]) if shelly == nil
     end
 
     describe 'Store all information' do

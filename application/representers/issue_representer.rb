@@ -12,7 +12,7 @@ module TalkUp
         property :section
 
         property :owner, extend: AccountRepresenter
-        collection :collaborator, extend: AccountRepresenter
+        collection :collaborators, extend: AccountRepresenter
         collection :comments, extend: CommentRepresenter
 
     end

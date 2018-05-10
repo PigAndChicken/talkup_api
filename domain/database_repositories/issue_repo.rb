@@ -11,7 +11,13 @@ module TalkUp
             def self.create_by(account, entity)
                 db_issue = Database::IssueOrm.new(entity.to_h)
                 db_issue.owner = account
-                db_issue.save
+                
+                begin
+                    db_issue.save  
+                rescue => exception
+                    return { :issue_errors => exception.errors.to_h }
+                end
+                  
                 rebuild_entity(db_issue)
             end
 

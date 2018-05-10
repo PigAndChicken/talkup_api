@@ -11,7 +11,7 @@ module TalkUp
             element[:collaborators] = data?(db_record, :collaborators) ? rebuild_entities(db_record.collaborators, Repo::Account) : nil
             element[:commenter] = data?(db_record, :commenter) ? Repo::Account.rebuild_entity(db_record.commenter) : nil
             element[:comments] = data?(db_record, :comments) ? rebuild_entities(db_record.comments, Repo::Comment) : nil
-            element[:feedbacks] = data?(db_record, :feedbacks) ? rebuild_entities(db_record.feedbacks, Repo:Feedback) : nil
+            element[:feedbacks] = data?(db_record, :feedbacks) ? rebuild_entities(db_record.feedbacks, Repo::Feedback) : nil
             element
         end
 
@@ -21,7 +21,7 @@ module TalkUp
         end
 
         def rebuild_entities(db_record, repo)
-            db_record.map do |record|
+            db_record.map! do |record|
                 repo.rebuild_entity(record)
             end
             db_record

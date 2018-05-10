@@ -21,7 +21,7 @@ module TalkUp
             plugin :association_dependencies, owned_issues: :destroy, collaborations: :nullify, feedbacks: :destroy, comments: :destroy
             plugin :timestamps, update_on_create: true
             
-
+            plugin :validation_helpers
 
             def issues 
                 owned_issues + collaborations
@@ -35,6 +35,12 @@ module TalkUp
             def password?(try_password)
                 try_hash = SecureDB.hash_password(salt, try_password)
                 try_hash == password_hash
+            end
+
+            def validate
+                super
+                validates_presence [:username, :email]
+                validates_unique :username, :email
             end
         end
     end

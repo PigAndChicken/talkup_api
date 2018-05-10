@@ -14,7 +14,7 @@ module TalkUp
             attribute :updated_at, Types::Strict::Time.optional
 
             attribute :commenter, Entity::Account.optional
-            attribute :feedbacks, Types::Strict::Array.member(Entity::Feedback)
+            attribute :feedbacks, Types::Strict::Array.member(Entity::Feedback).optional
 
         end 
     end

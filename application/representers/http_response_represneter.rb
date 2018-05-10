@@ -33,7 +33,7 @@ module TalkUp
         end
 
         def http_message
-            [msg_or_error => @represented.message]
+            {msg_or_error => @represented.message}
         end
 
         def msg_or_error
