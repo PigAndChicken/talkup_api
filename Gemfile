@@ -30,7 +30,7 @@ gem 'dry-types'
 gem 'dry-struct'
 
 #Database
-gem 'sqlite3'
+gem 'sequel'
 gem 'hirb'
 
 #Configure
@@ -41,7 +41,7 @@ gem 'facets'
 
 
 group :development, :test do 
-    gem 'sequel'
+    gem 'sqlite3'
 end
 
 group :production do 
