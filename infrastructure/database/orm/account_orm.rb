@@ -32,11 +32,6 @@ module TalkUp
                 self.password_hash = SecureDB.hash_password(salt, new_password)
             end
 
-            def password?(try_password)
-                try_hash = SecureDB.hash_password(salt, try_password)
-                try_hash == password_hash
-            end
-
             def validate
                 super
                 validates_presence [:username, :email]

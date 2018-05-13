@@ -5,9 +5,7 @@ module TalkUp
     class Api < Roda 
         plugin :json
         plugin :multi_route
-
-        require_relative './issue.rb'
-        require_relative './account.rb'     
+        plugin :halt
 
         route do |routing|
             app = Api

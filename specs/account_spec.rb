@@ -58,5 +58,26 @@ describe 'Test TalkUp Web API' do
                 _(result.keys).must_include "error"
             end
         end
+
+        describe 'Acount authenticate' do 
+
+            it 'HAPPY: should be albe to authenticate account with right password' do
+                Repo::Account.create(DATA[:accounts][0])
+                post 'api/v0.1/accounts/authenticate', DATA[:accounts][0].to_json, @req_header
+                
+                result = JSON.parse last_response.body
+                _(last_response.status).must_equal 200
+                _(result['username']).must_equal DATA[:accounts][0][:username]
+            end
+
+            it 'BAD: should be able to render error with error password' do 
+                Repo::Account.create(DATA[:accounts][0])
+                error_account = DATA[:accounts][0]
+                error_account[:password] = 'error'
+                post 'api/v0.1/accounts/authenticate', error_account.to_json, @req_header
+
+                _(last_response.status).must_equal 403
+            end
+        end
     end
 end

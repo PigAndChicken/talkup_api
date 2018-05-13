@@ -62,6 +62,8 @@ module TalkUp
                     id: db_record.id,
                     username: db_record.username,
                     email: db_record.email,
+                    password_hash: db_record.password_hash,
+                    salt: db_record.salt
                 )
             end
         end
