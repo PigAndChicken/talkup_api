@@ -30,7 +30,6 @@ gem 'dry-types'
 gem 'dry-struct'
 
 #Database
-gem 'sequel'
 gem 'sqlite3'
 gem 'hirb'
 
@@ -40,6 +39,10 @@ gem 'econfig'
 #Transformate
 gem 'facets'
 
+
+group :development, :test do 
+    gem 'sequel'
+end
 
 group :production do 
     gem 'pg'
