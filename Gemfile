@@ -39,3 +39,8 @@ gem 'econfig'
 
 #Transformate
 gem 'facets'
+
+
+group :production do 
+    gem 'pg'
+end
