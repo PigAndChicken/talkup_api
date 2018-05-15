@@ -45,7 +45,7 @@ describe 'Test all Repo' do
         end
     end
 
-    describe 'Correct Dependencies' do 
+    describe 'Correct Dependencies and Delete Data' do 
         
         before do 
             @account = Repo::Account.find_by(:username, DATA[:accounts][2][:username])[0]

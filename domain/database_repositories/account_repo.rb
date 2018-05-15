@@ -52,7 +52,7 @@ module TalkUp
                 if db_account == nil
                     return nil
                 else
-                    db_account.destroy
+                    rebuild_entity(db_account.destroy)
                 end
             end
 

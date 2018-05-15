@@ -33,6 +33,15 @@ module TalkUp
             end
         end
 
+        def self.delete(input)
+            result = Repo::Account.delete(input)
+            if result == nil 
+                Left(Result.new(:not_found, 'Could not find any.'))
+            else
+                Right(Result.new(:ok, result))
+            end
+        end
+
         def self.authenticate(input)
             begin
                 account = Repo::Account.find_by(:username, input[:username])[0]

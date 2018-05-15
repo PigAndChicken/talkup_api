@@ -20,6 +20,11 @@ module TalkUp
                     result = AccountService.find(username)
                     representer_response(result, AccountRepresenter)
                 end
+
+                routing.delete do 
+                    result = AccountService.delete(username)
+                    representer_response(result, AccountRepresenter)
+                end
             end
 
         end

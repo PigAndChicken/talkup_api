@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.5.1'
 
+#Console tool
 gem 'pry'
 gem 'rake'
 
@@ -41,6 +42,7 @@ gem 'facets'
 
 
 group :development, :test do 
+    #Database 
     gem 'sqlite3'
 end
 

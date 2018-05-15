@@ -6,6 +6,7 @@ module TalkUp
         plugin :json
         plugin :multi_route
         plugin :halt
+        plugin :all_verbs
 
         route do |routing|
             app = Api

@@ -79,5 +79,17 @@ describe 'Test TalkUp Web API' do
                 _(last_response.status).must_equal 403
             end
         end
+
+        describe 'Account data delete' do 
+            
+            it 'HAPPY: should be able to delete account' do 
+                Repo::Account.create(DATA[:accounts][0])
+                delete "api/v0.1/accounts/#{DATA[:accounts][0][:username]}"
+
+                result = JSON.parse last_response.body
+                _(last_response.status).must_equal 200
+                _(result['username']).must_equal DATA[:accounts][0][:username]
+            end
+        end
     end
 end
