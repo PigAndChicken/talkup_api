@@ -1,6 +1,9 @@
 ---
 development:
   DB_FILENAME: 'infrastructure/database/dev.db'
+  SECURE_SCHEME: 'HTTP'
 
 test: 
   DB_FILENAME: 'infrastructure/database/test.db'
+  SECURE_SCHEME: 'HTTP'
+
