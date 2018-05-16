@@ -13,7 +13,7 @@ module TalkUp
         end
 
         route do |routing|
-            response    ['Content_Type'] = 'application/json'
+            response['Content_Type'] = 'application/json'
             secure_request?(routing) || routing.halt(403, {message: 'TLS/SSL Requested'}.to_json)
             app = Api
 
