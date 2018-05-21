@@ -7,3 +7,6 @@ test:
   DB_FILENAME: 'infrastructure/database/test.db'
   SECURE_SCHEME: 'HTTP'
 
+production:
+  SECURE_SCHEME: 'HTTPS'
+
