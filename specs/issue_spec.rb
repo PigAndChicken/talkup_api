@@ -56,7 +56,29 @@ describe 'Test TalkUp Web API' do
             _(last_response.status).must_equal 400
             _(result['error'].keys).must_include "issue_errors"
           end
+        end
 
+        describe 'Issue Delete' do 
+          before do 
+            @issue = Repo::Issue.all[0]
+            if @issue == nil 
+              @issue = @vic.create_issue(DATA[:issues][1])
+            end
+          end
+          it 'HAPPY: should be able to delete issue information' do 
+            delete "api/v0.1/issue/#{@issue.id}"
+
+            result = JSON.parse last_response.body
+
+            _(last_response.status).must_equal 200
+            _(result['id']).must_equal @issue.id
+          end
+
+          it 'BAD: should be able to return miss msg' do
+            delete 'api/v0.1/issue/wrong_id'
+
+            _(last_response.status).must_equal 404
+          end
         end
 
   end

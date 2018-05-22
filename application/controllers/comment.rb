@@ -10,6 +10,7 @@ module TalkUp
                 result = CommentService::Create.new.call(data)
                 representer_response(result, CommentRepresenter)
             end
+
         end 
     end
     

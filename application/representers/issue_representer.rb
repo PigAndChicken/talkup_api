@@ -6,6 +6,7 @@ module TalkUp
     class IssueRepresenter < Roar::Decorator
         include Roar::JSON
 
+        property :id
         property :title
         property :description
         property :deadline

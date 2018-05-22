@@ -21,13 +21,19 @@ module TalkUp
                     result = IssueService.find_by(issue_id)
                     representer_response(result, IssueRepresenter)
                 end
-            end
 
+                routing.delete do
+                    result = IssueService.delete(issue_id)
+                    representer_response(result, IssueRepresenter)
+                end
+            end
             routing.post do 
                 data = JSON.parse routing.body.read
                 result=  IssueService::Create.new.call(data)
                 representer_response(result, IssueRepresenter)
             end
+
+
         end
 
     end

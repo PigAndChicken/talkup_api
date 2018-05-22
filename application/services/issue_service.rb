@@ -25,6 +25,15 @@ module TalkUp
             end
         end
         
+        def self.delete(issue_id)
+            result = Repo::Issue.delete(issue_id)
+            if result == nil 
+                Left(Result.new(:not_found, 'Could not find any.'))
+            else
+                Right(Result.new(:ok, result))
+            end
+        end
+
         class Create
             include Dry::Transaction    
             include Dry::Transaction(container: Container)

@@ -53,7 +53,13 @@ module TalkUp
             
             #delete
             def self.delete(issue_id)
-                Database::IssueOrm.first(id: issue_id).destroy
+                db_issue = Database::IssueOrm.first(id: issue_id)
+                
+                if db_issue == nil
+                    return nil
+                else
+                    rebuild_entity(db_issue.destroy)
+                end
             end
 
             
