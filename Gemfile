@@ -19,7 +19,7 @@ gem 'dry-monads'
 gem 'dry-transaction'
 
 #Security
-gem 'rbnacl-libsodium'
+    gem 'rbnacl-libsodium'
 
 #Testing
 gem 'minitest'

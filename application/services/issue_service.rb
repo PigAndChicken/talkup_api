@@ -1,5 +1,6 @@
 require 'dry-monads'
 require 'dry/transaction'
+require_relative './verify_container.rb'
 
 module TalkUp
 
@@ -25,20 +26,12 @@ module TalkUp
         end
         
         class Create
-            include Dry::Transaction
+            include Dry::Transaction    
+            include Dry::Transaction(container: Container)
 
-            step :current_account
+
+            step :current_account, with: "verify.current_account"
             step :create_issue
-
-            def current_account(input)
-                if Repo::Account.find_by(:username, input['username']) != nil
-                    input[:account] = Repo::Account.new(input['username'])
-
-                    Right(input)
-                else
-                    Left(Result.new(:bad_request, 'Account information Error.'))
-                end
-            end
 
             def create_issue(input)
                result = input[:account].create_issue(input['issue_data'])
