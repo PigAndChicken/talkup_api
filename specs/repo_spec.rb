@@ -1,9 +1,7 @@
 require_relative './spec_helper.rb'
 
 
-DATA[:feedbacks].each do |feedback|
-    TalkUp::Database::FeedbackDescriptionOrm.create(feedback.to_h)
-end
+
 
 describe 'Test all Repo' do 
 

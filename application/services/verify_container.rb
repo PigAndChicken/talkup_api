@@ -10,7 +10,10 @@ class Container
         end
         ops.register "current_issue" do
             CurrentIssue.new
-        end 
+        end
+        ops.register "current_comment" do
+            CurrentComment.new
+        end  
     end
 
 end
