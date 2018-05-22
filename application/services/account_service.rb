@@ -25,7 +25,7 @@ module TalkUp
         end
 
         def self.find(input)
-            result = Repo::Account.find_by(:username, input)[0]
+            result = Repo::Account.find_by(:username, input)
             if result == nil 
                 Left(Result.new(:not_found, 'Could not find any.'))
             else
@@ -44,7 +44,7 @@ module TalkUp
 
         def self.authenticate(input)
             begin
-                account = Repo::Account.find_by(:username, input[:username])[0]
+                account = Repo::Account.find_by(:username, input[:username])
                 account.password?(input[:password]) ? Right(Result.new(:ok, account)) : raise
             rescue UnauthorizedError
                 raise UnauthorizedError, input                

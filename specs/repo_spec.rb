@@ -8,8 +8,8 @@ end
 describe 'Test all Repo' do 
 
     before do
-        vic = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][0][:username])[0]
-        shelly = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][1][:username])[0]
+        vic = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][0][:username])
+        shelly = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][1][:username])
         Repo::Account.create(DATA[:accounts][0]) if vic == nil
         Repo::Account.create(DATA[:accounts][1]) if shelly == nil
     end
@@ -17,8 +17,8 @@ describe 'Test all Repo' do
     describe 'Store all information' do
 
         it 'HAPPY: should be able to store account with correct information' do
-            vic = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][0][:username])[0]
-            shelly = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][1][:username])[0]
+            vic = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][0][:username])
+            shelly = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][1][:username])
 
             _(vic).must_be_instance_of TalkUp::Entity::Account
             _(shelly.username).must_equal DATA[:accounts][1][:username]
@@ -26,7 +26,7 @@ describe 'Test all Repo' do
 
         it 'HAPPY: should be able to store other data with account object' do
             vic = TalkUp::Repo::Account.new(DATA[:accounts][0][:username])
-            shelly = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][1][:username])[0]
+            shelly = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][1][:username])
 
             issue = vic.create_issue(DATA[:issues][0])
             _(issue).must_be_instance_of TalkUp::Entity::Issue
@@ -48,7 +48,7 @@ describe 'Test all Repo' do
     describe 'Correct Dependencies and Delete Data' do 
         
         before do 
-            @account = Repo::Account.find_by(:username, DATA[:accounts][2][:username])[0]
+            @account = Repo::Account.find_by(:username, DATA[:accounts][2][:username])
             @account = TalkUp::Repo::Account.create(DATA[:accounts][2]) if @account == nil
             soumya = TalkUp::Repo::Account.new(DATA[:accounts][2][:username])
             @issue = soumya.create_issue(DATA[:issues][1])
@@ -74,7 +74,7 @@ describe 'Test all Repo' do
 
         it 'HAPPY: Dependecy between account and issue' do
             Repo::Account.delete(@account.username)
-            account = Repo::Account.find_by(:username, @account.username)[0]
+            account = Repo::Account.find_by(:username, @account.username)
             issue = Repo::Issue.find_by(:id, @issue.id)[0]
             _(account).must_be_nil
             _(issue).must_be_nil

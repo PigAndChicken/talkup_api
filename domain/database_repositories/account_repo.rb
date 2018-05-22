@@ -42,7 +42,7 @@ module TalkUp
 
             #find
             def self.find_by(col, val)
-                Database::AccountOrm.filter({col => val}).all.map {|db_record| rebuild_entity(db_record)}
+                rebuild_entity( Database::AccountOrm.filter({col => val}).first )
             end
 
             #delete
