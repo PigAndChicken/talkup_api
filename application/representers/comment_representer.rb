@@ -1,4 +1,5 @@
 require_relative './account_representer.rb'
+require_relative './feedback_representer.rb'
 
 module TalkUp
 
@@ -8,5 +9,6 @@ module TalkUp
         property :id
         property :content
         property :commenter , extend: AccountRepresenter
+        collection :feedbacks, extend: FeedbackRepresenter
     end
 end
