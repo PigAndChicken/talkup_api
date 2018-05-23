@@ -15,6 +15,9 @@ describe 'Test TalkUp Web API' do
                 @issue = @vic.create_issue(DATA[:issues][0])
             end
         end
+        after do
+            delete_all
+        end
 
         describe 'Comment Creation' do 
             it 'It should be able to leave a comment' do 

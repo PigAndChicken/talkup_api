@@ -15,7 +15,7 @@ module TalkUp
             step :add_comment
 
             def add_comment(input)
-                result=  input[:account].add_comment_to(input['issue_id'], input['comment_data'])
+                result=  input[:account].add_comment_to(input[:issue_id], input[:comment_data])
                 if result.class == Hash
                    Left(Result.new(:bad_request, result))
                 else

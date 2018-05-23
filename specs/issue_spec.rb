@@ -11,6 +11,9 @@ describe 'Test TalkUp Web API' do
             end
             @vic = Repo::Account.new(@account.username)
         end
+        after do 
+          delete_all
+        end
     
         describe 'Getting information' do
 
@@ -43,7 +46,6 @@ describe 'Test TalkUp Web API' do
             post "api/v0.1/issue", data.to_json, @req_header
             
             result = JSON.parse last_response.body
-
             _(last_response.status).must_equal 201
             _(result['title']).must_equal DATA[:issues][1][:title]
             _(result['owner']['username']).must_equal @account.username

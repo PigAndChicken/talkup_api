@@ -11,6 +11,9 @@ describe 'Test all Repo' do
         Repo::Account.create(DATA[:accounts][0]) if vic == nil
         Repo::Account.create(DATA[:accounts][1]) if shelly == nil
     end
+    after do 
+        delete_all
+    end
 
     describe 'Store all information' do
 

@@ -11,8 +11,8 @@ module TalkUp
                 end
             end
 
-            def self.create_by(account, comment, entity)
-                description = Database::FeedbackDescriptionOrm.first(entity.to_h)
+            def self.create_by(account, comment, feedback)
+                description = Database::FeedbackDescriptionOrm.first(feedback)
                 feedback = Database::FeedbackOrm.new
                 feedback.commenter= account
                 feedback.comment= comment
@@ -24,9 +24,8 @@ module TalkUp
             
             def self.rebuild_entity(db_record)
                 return nil unless  db_record
-
                 element = rebuild_elements(db_record)    
-                
+                #return nil if db_record.description.nil?
                 Entity::Feedback.new(
                     id: db_record.id,
                     commenter: element[:commenter],

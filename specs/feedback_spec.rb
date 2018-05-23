@@ -4,7 +4,6 @@ describe 'Test TalkUp Web API' do
 
     describe 'Feedback Route' do 
         before do
-
             @req_header = { 'CONTENT_TYPE' => 'application/json' }
             @account = Repo::Account.find_by(:username, DATA[:accounts][0][:username]) 
             if @account == nil
@@ -20,13 +19,15 @@ describe 'Test TalkUp Web API' do
                 @comment = @vic.add_comment_to(@issue.id, DATA[:comments][0])
             end
         end
+        after do 
+            delete_all
+        end
 
         describe 'Feedback Creation' do 
-            it 'HAPPY: It should be able to leave a feedback' do 
-                data = {'username' => @account.username, 'comment_id' => @comment.id, 'feedback_data' => DATA[:feedbacks][0]}
-                
+            it 'HAPPY: It should be able to leave a feedback' do
+                data = {:username => @account.username, :comment_id => @comment.id, :feedback_data => DATA[:feedbacks][1] }
                 post 'api/v0.1/feedback', data.to_json, @req_header
-
+ 
                 _(last_response.status).must_equal 201
             end
         end

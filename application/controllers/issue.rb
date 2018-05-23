@@ -28,7 +28,8 @@ module TalkUp
                 end
             end
             routing.post do 
-                data = JSON.parse routing.body.read
+                data = JsonRequestBody.parse_sym(routing.body.read)
+                
                 result=  IssueService::Create.new.call(data)
                 representer_response(result, IssueRepresenter)
             end

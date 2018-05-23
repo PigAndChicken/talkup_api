@@ -43,7 +43,7 @@ module TalkUp
             step :create_issue
 
             def create_issue(input)
-               result = input[:account].create_issue(input['issue_data'])
+               result = input[:account].create_issue(input[:issue_data])
                if result.class == Hash
                    Left(Result.new(:bad_request, result))
                else

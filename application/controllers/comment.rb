@@ -5,7 +5,7 @@ module TalkUp
         route('comment') do |routing|
 
             routing.post do 
-                data = JSON.parse routing.body.read
+                data = JsonRequestBody.parse_sym(routing.body.read)
                 
                 result = CommentService::Create.new.call(data)
                 representer_response(result, CommentRepresenter)

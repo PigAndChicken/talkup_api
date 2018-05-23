@@ -15,7 +15,8 @@ module TalkUp
             step :add_feedback
 
             def add_feedback(input)
-                result=  input[:account].add_feedback_to(input['comment_id'], input['feedback_data'])
+                result=  input[:account].add_feedback_to( input[:comment_id], input[:feedback_data] )
+                
                 if result.class == Hash
                    Left(Result.new(:bad_request, result))
                 else

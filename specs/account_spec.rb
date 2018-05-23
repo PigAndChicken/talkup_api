@@ -1,20 +1,12 @@
 require_relative './spec_helper.rb'
 
 describe 'Test TalkUp Web API' do
-    
     describe 'Accounts Route' do
         before do 
             @req_header = { 'CONTENT_TYPE' => 'application/json' }
-            accounts = Database::AccountOrm.all
-            if !accounts.empty?
-                accounts.each { |a| a.destroy }
-            end
         end
         after do 
-            accounts = Database::AccountOrm.all
-            if !accounts.empty?
-                accounts.each { |a| a.destroy }
-            end
+            delete_all
         end
 
         describe 'Account Creation' do
