@@ -17,12 +17,19 @@ module TalkUp
             plugin :timestamps, update_on_create: true
             plugin :uuid, field: :id
 
+            plugin :validation_helpers
+
             def content=(content)
                 self.content_secure = SecureDB.encrypt(content)
             end
 
             def content
                 SecureDB.decrypt(content_secure)
+            end
+
+            def validate
+                super
+                validates_presence [:content]
             end
         end
     end

@@ -11,7 +11,7 @@ module TalkUp
                         auth_account = AccountService.authenticate(credentials)
                         representer_response(auth_account, AccountRepresenter)
                     rescue
-                        routing.halt '403', { error: 'Invalid credentials' }.to_json
+                        routing.halt '403', { errors: {account: 'Invalid credentials' } }.to_json
                     end
             end
         end

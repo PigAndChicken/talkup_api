@@ -37,7 +37,7 @@ module TalkUp
         end
 
         def msg_or_error
-            http_success? ? :message : :error
+            http_success? ? :message : :errors
         end
 
     end

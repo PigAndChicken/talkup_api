@@ -7,11 +7,14 @@ module TalkUp
             
             #create
             def self.create_by(account, issue, entity)
-                comment = Database::CommentOrm.new(entity.to_h)
-                comment.commenter = account
-                comment.issue = issue
-                comment.save
-
+                begin
+                    comment = Database::CommentOrm.new(entity.to_h)
+                    comment.commenter = account
+                    comment.issue = issue
+                    comment.save
+                rescue => exception
+                    return { :comment => exception.errors }
+                end
                 rebuild_entity(comment)
             end
 

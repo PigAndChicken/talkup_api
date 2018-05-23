@@ -15,7 +15,7 @@ module TalkUp
                 begin
                     db_issue.save  
                 rescue => exception
-                    return { :issue_errors => exception.errors.to_h }
+                    return { :issue => exception.errors }
                 end
                   
                 rebuild_entity(db_issue)

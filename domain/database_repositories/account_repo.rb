@@ -35,7 +35,7 @@ module TalkUp
                 begin
                     db_account = Database::AccountOrm.create(entity.to_h)    
                 rescue => exception
-                    return { :account_errors => exception.errors.to_h }
+                    return { :account => exception.errors    }
                 end
                 rebuild_entity(db_account)
             end
