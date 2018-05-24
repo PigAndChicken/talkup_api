@@ -56,7 +56,7 @@ describe 'Test TalkUp Web API' do
 
             result = JSON.parse last_response.body
             _(last_response.status).must_equal 400
-            _(result['error'].keys).must_include "issue_errors"
+            _(result['errors'].keys).must_include "issue"
           end
         end
 

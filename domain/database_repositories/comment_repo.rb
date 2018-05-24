@@ -13,7 +13,7 @@ module TalkUp
                     comment.issue = issue
                     comment.save
                 rescue => exception
-                    return { :comment => exception.errors }
+                    return { :comment => exception.errors.full_messages }
                 end
                 rebuild_entity(comment)
             end
