@@ -1,4 +1,3 @@
-require 'facets'
 
 class JsonRequestBody
 
@@ -11,7 +10,8 @@ class JsonRequestBody
         hash.each do |k, v|
             hash[k] = recur_sym(v) if v.class == Hash
         end
-        hash.symbolize_keys
+        #hash.symbolize_keys
+        Hash[hash.map { |k, v| [k.to_sym, v] }]
     end
     
 end

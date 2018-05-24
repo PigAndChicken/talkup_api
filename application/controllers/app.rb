@@ -16,7 +16,7 @@ module TalkUp
             response['Content_Type'] = 'application/json'
             secure_request?(routing) || routing.halt(403, {message: 'TLS/SSL Requested'}.to_json)
             app = Api
-
+            
             routing.root do 
                 { 'message' => "TalkUp API v0.1 up in #{app.environment}" }
             end

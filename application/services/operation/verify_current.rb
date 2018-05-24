@@ -1,7 +1,8 @@
 require "dry/transaction"
 require "dry/transaction/operation"
 
-class CurrentAccount
+module TalkUp
+    class CurrentAccount
     include Dry::Transaction::Operation
 
     def call(input)
@@ -37,4 +38,5 @@ class CurrentComment
             Left(Result.new(:bad_request, 'Comment Information Error.'))
         end
     end
+end
 end

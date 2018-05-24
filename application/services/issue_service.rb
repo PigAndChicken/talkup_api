@@ -7,8 +7,8 @@ module TalkUp
     module IssueService
         extend Dry::Monads::Either::Mixin
 
-        def self.all
-            issues = Repo::Issue.all
+        def self.all(section)
+            issues = Repo::Issue.all(section)
             if !issues.empty?
                 Right(Result.new(:ok, issues))
             else

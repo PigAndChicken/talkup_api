@@ -1,6 +1,8 @@
 require 'dry-container'
 require_relative './operation/verify_current.rb'
 
+module TalkUp
+    
 class Container
     extend Dry::Container::Mixin
 
@@ -16,4 +18,6 @@ class Container
         end  
     end
 
+end
+    
 end

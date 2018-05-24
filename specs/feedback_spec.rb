@@ -10,7 +10,7 @@ describe 'Test TalkUp Web API' do
                 @account = Repo::Account.create(DATA[:accounts][0])
             end
             @vic = Repo::Account.new(@account.username)
-            @issue = Repo::Issue.all[0]
+            @issue = Database::IssueOrm.first
             if @issue == nil
                 @issue = @vic.create_issue(DATA[:issues][0])
             end

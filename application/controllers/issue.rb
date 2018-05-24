@@ -6,8 +6,8 @@ module TalkUp
         
         route('issues') do |routing|
 
-            routing.get do
-                result = IssueService.all
+            routing.on String do |section|
+                result = IssueService.all(section)
                 representer_response(result, IssuesRepresenter) { Issues.new(result.value.message) }
             end
 
@@ -15,6 +15,13 @@ module TalkUp
 
         route('issue') do |routing|
 
+            routing.post do 
+                data = JsonRequestBody.parse_sym(routing.body.read)
+                
+                result=  IssueService::Create.new.call(data)
+                representer_response(result, IssueRepresenter)
+            end
+            
             routing.on String do |issue_id|
 
                 routing.get do
@@ -27,12 +34,7 @@ module TalkUp
                     representer_response(result, IssueRepresenter)
                 end
             end
-            routing.post do 
-                data = JsonRequestBody.parse_sym(routing.body.read)
-                
-                result=  IssueService::Create.new.call(data)
-                representer_response(result, IssueRepresenter)
-            end
+         
 
 
         end

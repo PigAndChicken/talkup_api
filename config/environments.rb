@@ -17,6 +17,10 @@ module TalkUp
             ENV['DATABASE_URL'] = "sqlite://" + config.DB_FILENAME
         end
 
+        configure :production do 
+            require 'pg'
+        end
+        
         configure do 
             require 'sequel'
             DB = Sequel.connect(ENV['DATABASE_URL'])

@@ -19,7 +19,7 @@ describe 'Test TalkUp Web API' do
 
           it 'HAPPY: should be able to get list of all issues ' do
             issue = @vic.create_issue(DATA[:issues][0])
-            get 'api/v0.1/issues'
+            get 'api/v0.1/issues/2'
 
             result = JSON.parse last_response.body
 
@@ -27,6 +27,7 @@ describe 'Test TalkUp Web API' do
             _(result['issues']).must_be_kind_of Array
             _(result['issues'][0].keys).must_include 'title'
          end
+
 
          it 'HAPPY: should be able to get details of issue' do
             issue = @vic.create_issue(DATA[:issues][1])
@@ -62,7 +63,7 @@ describe 'Test TalkUp Web API' do
 
         describe 'Issue Delete' do 
           before do 
-            @issue = Repo::Issue.all[0]
+            @issue = Database::IssueOrm.first
             if @issue == nil 
               @issue = @vic.create_issue(DATA[:issues][1])
             end

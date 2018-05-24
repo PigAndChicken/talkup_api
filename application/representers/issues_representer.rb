@@ -1,3 +1,4 @@
+require_relative './account_representer.rb'
 require_relative './issue_representer.rb'
 
 module TalkUp
@@ -5,7 +6,7 @@ module TalkUp
     class IssuesRepresenter < Roar::Decorator
         include Roar::JSON
 
-        collection :issues, class: IssueRepresenter do 
+        collection :issues, extend: IssueRepresenter do 
             property :id
             property :title
             #property :description

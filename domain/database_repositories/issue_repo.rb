@@ -33,8 +33,8 @@ module TalkUp
             end
             
             #read
-            def self.all
-                Database::IssueOrm.all.map { |db_issue| rebuild_entity(db_issue) }
+            def self.all(section)
+                Database::IssueOrm.where(section: section).all.map { |db_issue| rebuild_entity(db_issue) }
             end
 
             def self.find_by(col, value)
