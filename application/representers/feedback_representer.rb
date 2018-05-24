@@ -1,3 +1,4 @@
+require_relative './account_representer.rb'
 
 module TalkUp
 
