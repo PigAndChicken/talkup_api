@@ -1,21 +1,11 @@
 require 'base64'
 require 'rbnacl/libsodium'
 
+require_relative './securable.rb'
+
 
 class SecureDB
-
-    def self.generate_key
-        key = RbNaCl::Random.random_bytes(RbNaCl::SecretBox.key_bytes)
-        Base64.strict_encode64(key)
-    end
-
-    def self.setup(config)
-        @config = config
-    end
-
-    def self.key
-        @key ||= Base64.strict_decode64(@config.DB_KEY)
-    end
+    extend Securable
 
     def self.new_salt
         Base64.strict_encode64(

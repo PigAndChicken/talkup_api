@@ -1,2 +1,3 @@
-require_relative './secure_db.rb'
-require_relative './json_request.rb'
+Dir.glob("#{File.dirname(__FILE__)}/*.rb").each do |file|
+  require file
+end

@@ -9,6 +9,9 @@ gem 'rake'
 gem 'roda'
 gem 'puma'
 
+#Connect to external API
+gem 'http'
+
 #Data Representer 
 gem 'json'
 gem 'roar'

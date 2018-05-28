@@ -2,10 +2,12 @@
 development:
   DB_FILENAME: 'infrastructure/database/dev.db'
   SECURE_SCHEME: 'HTTP'
+  SENDGRID_API: https://api.sendgrid.com/v3/mail/send
 
 test: 
   DB_FILENAME: 'infrastructure/database/test.db'
   SECURE_SCHEME: 'HTTP'
+  SENDGRID_API: https://api.sendgrid.com/v3/mail/send
 
 production:
   SECURE_SCHEME: 'HTTPS'
