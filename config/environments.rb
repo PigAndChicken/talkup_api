@@ -2,7 +2,7 @@ require 'roda'
 require 'econfig'
 
 require_relative '../lib/secure_db.rb'
-
+require_relative '../lib/auth_token.rb'
 
 module TalkUp
 
@@ -30,6 +30,7 @@ module TalkUp
             end
 
             SecureDB.setup(config)
+            AuthToken.setup(config)
         end
 
     end

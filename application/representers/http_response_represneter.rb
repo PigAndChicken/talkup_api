@@ -12,6 +12,7 @@ module TalkUp
             :accepted => 202,
 
             :bad_request => 400,
+            :unauthorized => 401,
             :not_found => 404,
             :conflict => 409,
 

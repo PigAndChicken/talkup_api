@@ -16,7 +16,7 @@ module TalkUp
             end
         end
 
-        def self.find_by(issue_id)
+        def self.find_by(issue_id, )
             issue = Repo::Issue.find_by(:id, issue_id)[0]
             if !issue.nil?
                 Right(Result.new(:ok, issue))
@@ -32,6 +32,32 @@ module TalkUp
             else
                 Right(Result.new(:ok, result))
             end
+        end
+
+        class Detail
+            include Dry::Transaction
+
+            step :issue_exist?
+            step :account_auth?
+
+            def issue_exist?(input)
+                issue = Repo::Issue.find_by(:id, input[:issude_id])[0]
+                if !issue.nil?
+                    input[:issue] = issue
+                    Right(input)
+                else
+                    Left(Result.new(:not_found, 'Issue not exist'))
+                end
+            end
+            def account_auth?(input)
+                account = Repo::Account.find_by(:username, input[:username])
+                if account.issue_read?(input[:issude_id])
+                    Right(Result.new(:ok, issue))
+                else
+                    Left(Result.new(:unauthorized, 'You can read this.'))
+                end
+            end
+
         end
 
         class Create

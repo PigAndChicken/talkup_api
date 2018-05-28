@@ -20,6 +20,15 @@ describe 'Test TalkUp Web API' do
                 _(result['username']).must_equal DATA[:accounts][0][:username]
             end
 
+            it 'HAPPY: should be able to sent email' do 
+                data = {:username => 'Vicxu', :email => 'xumingyo@gmail.com', :verification_url => 'http://example.com', :sendgrid => app.config}
+                post 'api/v0.1/accounts', data.to_json, @req_header
+                
+                result = JSON.parse last_response.body
+                _(result['message']).must_equal 'Email has been sent.'
+
+            end
+
             it 'BAD: should be able to return error msg' do 
                 post 'api/v0.1/accounts', DATA[:accounts][0].to_json, @req_header
                 post 'api/v0.1/accounts', DATA[:accounts][0].to_json, @req_header

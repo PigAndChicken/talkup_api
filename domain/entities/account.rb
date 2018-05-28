@@ -11,11 +11,23 @@ module TalkUp
             attribute :email, Types::Strict::String
             attribute :password_hash, Types::Strict::String
             attribute :salt, Types::Strict::String
+            
 
-
+            def token
+                AuthToken.create(@username)
+            end
 
             def issues
                 Repo::Issue.find_by(:owner_id, @id)
+            end
+
+            def issue_read?(issue_id)
+                issue = Repo::Issue.find_by(:id, issue_id)[0]
+                read = (issue.owner.username == @username) ? true : false
+                issue.collaborators.each do |c|
+                    read = true if c.username == @username
+                end
+                return read
             end
 
             def comments

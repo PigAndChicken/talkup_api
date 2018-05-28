@@ -5,5 +5,6 @@ module TalkUp
         
         property :username
         property :email
+        property :token
     end
 end

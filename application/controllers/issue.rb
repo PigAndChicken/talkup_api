@@ -25,7 +25,8 @@ module TalkUp
             routing.on String do |issue_id|
 
                 routing.get do
-                    result = IssueService.find_by(issue_id)
+                    input = {:issue_id => issue_id, :username => @auth_account}
+                    result = IssueService::Detail.new.call(input)
                     representer_response(result, IssueRepresenter)
                 end
 

@@ -10,8 +10,16 @@ module TalkUp
 
             routing.post do 
                 account_data = JsonRequestBody.parse_sym(request.body.read)
-                result = AccountService.create(account_data)
-                representer_response(result, AccountRepresenter)
+                if account_data[:password].nil?
+                    account_data[:sendgrid] = Api.config
+                    EmailVerification.new.call(account_data)    
+                    { 'message' => 'Email has been sent.' }
+                else
+                    account_data.delete(:confirmed_pwd)
+                    account_data.delete(:verification_url)
+                    result = AccountService.create(account_data)
+                    representer_response(result, AccountRepresenter)
+                end
             end
 
             routing.on String do |username|
