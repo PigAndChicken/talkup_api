@@ -16,7 +16,7 @@ module TalkUp
             end
         end
 
-        def self.find_by(issue_id, )
+        def self.find_by(issue_id )
             issue = Repo::Issue.find_by(:id, issue_id)[0]
             if !issue.nil?
                 Right(Result.new(:ok, issue))
