@@ -12,9 +12,16 @@ module TalkUp
             attribute :content, Types::Strict::String
             attribute :created_at, Types::Strict::Time.optional
             attribute :updated_at, Types::Strict::Time.optional
+            attribute :anonymous, Types::Strict::Int
 
-            attribute :commenter, Entity::Account.optional
+            attribute :issue_owner, Entity::Account
+            attribute :commenter, Entity::Account
             attribute :feedbacks, Types::Strict::Array.member(Entity::Feedback).optional
+
+            def issue
+                comment = TalkUp::Database::CommentOrm.first(id: @id) 
+                Repo::Issue.find_by(:id, comment.issue.id)[0]
+            end
 
         end 
     end

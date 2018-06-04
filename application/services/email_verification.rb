@@ -36,7 +36,7 @@ module TalkUp
                         input[:sendgrid].SENDGRID_API,
                         json: {
                             personalizations: [{
-                                to: [{ 'email' => 'xumingyo@gmail.com' }]
+                                to: [{ 'email' => input[:email] }]
                             }],
                             from: { 'email' => 'no-reply@talkup.com' },
                             subject: 'TalkUp Registration Verification',

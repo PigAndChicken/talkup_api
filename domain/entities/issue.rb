@@ -15,10 +15,19 @@ module TalkUp
             attribute :updated_at, Types::Strict::Time.optional
             attribute :deadline, Types::Strict::Time.optional
             attribute :section, Types::Strict::Int
+            attribute :anonymous, Types::Strict::Int
             
             attribute :owner, Entity::Account
             attribute :collaborators, Types::Strict::Array.member(Entity::Account).optional
             attribute :comments, Types::Strict::Array.member(Entity::Comment).optional
+
+            def set_policy(policy)
+                @policy = policy
+            end
+
+            def policy
+                OpenStruct.new(@policy.summary)
+            end
 
         end 
     end

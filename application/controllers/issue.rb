@@ -17,7 +17,7 @@ module TalkUp
 
             routing.post do 
                 data = JsonRequestBody.parse_sym(routing.body.read)
-                
+                data[:username] = @auth_account
                 result=  IssueService::Create.new.call(data)
                 representer_response(result, IssueRepresenter)
             end
@@ -25,9 +25,9 @@ module TalkUp
             routing.on String do |issue_id|
 
                 routing.get do
-                    input = {:issue_id => issue_id, :username => @auth_account}
-                    result = IssueService::Detail.new.call(input)
-                    representer_response(result, IssueRepresenter)
+                     input = {:issue_id => issue_id, :username => @auth_account}
+                     result = IssueService::Detail.new.call(input)
+                     representer_response(result, IssueRepresenter)
                 end
 
                 routing.delete do

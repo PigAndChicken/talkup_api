@@ -45,8 +45,10 @@ module TalkUp
                 Entity::Comment.new(
                     id: db_record.id,
                     content: db_record.content,
+                    issue_owner: db_record.issue.owner,
                     commenter: elements[:commenter],
                     feedbacks: elements[:feedbacks],
+                    anonymous: db_record.anonymous,
                     created_at: db_record.created_at,
                     updated_at: db_record.updated_at
                 )

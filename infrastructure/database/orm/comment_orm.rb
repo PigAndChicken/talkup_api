@@ -12,7 +12,7 @@ module TalkUp
                         key: :comment_id
 
             plugin :whitelist_security
-            set_allowed_columns :content
+            set_allowed_columns :content, :anonymous
             plugin :association_dependencies, feedbacks: :destroy
             plugin :timestamps, update_on_create: true
             plugin :uuid, field: :id

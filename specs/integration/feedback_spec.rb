@@ -1,4 +1,4 @@
-require_relative './test_load_all.rb'
+require_relative '../test_load_all.rb'
 
 describe 'Test TalkUp Web API' do 
 

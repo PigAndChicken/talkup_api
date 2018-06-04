@@ -10,6 +10,7 @@ Sequel.migration do
             String :description_secure, null: false
             Integer :process, default: 1
             Integer :section, null: false
+            Integer :anonymous, default: 0
 
             DateTime :created_at
             DateTime :updated_at

@@ -40,6 +40,11 @@ module TalkUp
                 rebuild_entity(db_account)
             end
 
+            def self.collaborators(username)
+                collaborators = Database::AccountOrm.all.delete_if {|item| item.username == username}
+                collaborators.map {|c| rebuild_entity(c)}
+            end
+
             #find
             def self.find_by(col, val)
                 rebuild_entity( Database::AccountOrm.filter({col => val}).first )

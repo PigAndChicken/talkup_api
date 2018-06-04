@@ -1,3 +1,4 @@
+
 module TalkUp
 
     class AccountRepresenter < Roar::Decorator
@@ -6,5 +7,7 @@ module TalkUp
         property :username
         property :email
         property :token
+
+        collection :issues
     end
 end

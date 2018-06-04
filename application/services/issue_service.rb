@@ -41,7 +41,7 @@ module TalkUp
             step :account_auth?
 
             def issue_exist?(input)
-                issue = Repo::Issue.find_by(:id, input[:issude_id])[0]
+                issue = Repo::Issue.find_by(:id, input[:issue_id])[0]
                 if !issue.nil?
                     input[:issue] = issue
                     Right(input)
@@ -51,10 +51,12 @@ module TalkUp
             end
             def account_auth?(input)
                 account = Repo::Account.find_by(:username, input[:username])
-                if account.issue_read?(input[:issude_id])
-                    Right(Result.new(:ok, issue))
+                issue_policy = IssuePolicy.new(account, input[:issue])
+                input[:issue].set_policy(issue_policy)
+                if issue_policy.can_view?
+                    Right(Result.new(:ok, input[:issue]))
                 else
-                    Left(Result.new(:unauthorized, 'You can read this.'))
+                    Left(Result.new(:not_found, "Issue not found"))
                 end
             end
 

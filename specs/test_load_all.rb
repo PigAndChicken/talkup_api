@@ -31,3 +31,14 @@ end
 include TalkUp
 
 DATA1 = {"username"=>"", "email"=>"", "password" => ""}
+
+co_user = [{username: 'Shelly'}, {username: 'SoumyaRay'}]
+
+
+# DATA[:feedbacks].each do |f|
+#   Database::FeedbackDescriptionOrm.create(f)
+# end
+
+VIC = TalkUp::Repo::Account.find_by(:username, "Vic")
+SHELLY = TalkUp::Repo::Account.find_by(:username, 'Shelly')
+ISSUE = TalkUp::Repo::Issue.find_by(:owner_id, VIC.id)[1]

@@ -11,8 +11,8 @@ module TalkUp
 
 
         def authenticated_account(headers)
-            return nil unless headers[:AUTHORIZATION]
-            scheme, auth_token = headers[:AUTHORIZATION].split(' ')
+            return nil unless headers['AUTHORIZATION']
+            scheme, auth_token = headers['AUTHORIZATION'].split(' ')
             account_payload = AuthToken.payload(auth_token)
             scheme.match(/^Bearer/i) ? account_payload : nil
         end
@@ -22,7 +22,7 @@ module TalkUp
         end
 
         route do |routing|
-            @auth_account = authenticated_account( JsonBodyRequest.parse_sym(routing.headers.to_json) )
+            @auth_account = authenticated_account( routing.headers )
             response['Content_Type'] = 'application/json'
             secure_request?(routing) || routing.halt(403, {message: 'TLS/SSL Requested'}.to_json)
             app = Api

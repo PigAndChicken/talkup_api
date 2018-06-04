@@ -16,12 +16,13 @@ class AuthToken
     class InvalidTokenError < StandardError; end
 
     def self.create(object, expiration = ONE_WEEK )
-        contents = { :payload => object, :exp => expiration }
+        contents = { :payload => object, :exp => expires(expiration) }
         tokenize(contents)
     end
 
     def self.payload(token)
         contents = detokenize(token)
+        contents
         expired?(contents) ? raise(ExpiredTokenError) : contents[:payload]
     end
 
@@ -35,7 +36,7 @@ class AuthToken
     end
 
     def self.detokenize(ciphertext64)
-        return nil unless token
+        return nil unless ciphertext64
         ciphertext = Base64.urlsafe_decode64(ciphertext64)
         message_json = base_decrypt(ciphertext)
         JsonRequestBody.parse_sym(message_json)
@@ -50,7 +51,7 @@ class AuthToken
     def self.expired?(contents)
         Time.now > Time.at(contents[:exp])
         rescue StandardError
-        raise InvalidTokenError
+        raise ExpiredTokenError
     end
 
 end

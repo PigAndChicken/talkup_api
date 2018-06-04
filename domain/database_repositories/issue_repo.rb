@@ -38,6 +38,10 @@ module TalkUp
             end
 
             def self.find_by(col, value)
+                if col == :collaborator_id
+                    issues = Database::IssueOrm.join(Database::AccountIssueOrm.where({col => value}), issue_id: :id).all
+                    return issues.map {|db_issue| rebuild_entity(db_issue)}
+                end
                 Database::IssueOrm.filter({col => value}).all.map { |db_issue| rebuild_entity(db_issue) }
             end
 
@@ -75,6 +79,7 @@ module TalkUp
                     process: db_record.process,
                     section: db_record.section,
                     deadline: db_record.deadline,
+                    anonymous: db_record.anonymous,
                     owner: elements[:owner],
                     comments: elements[:comments],
                     collaborators: elements[:collaborators],

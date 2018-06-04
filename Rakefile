@@ -1,9 +1,27 @@
 require 'rake/testtask' 
 
-desc 'Run all the tests'
-Rake::TestTask.new(:spec) do |t|
-  t.pattern = 'specs/*_spec.rb'
-  t.warning = false
+
+namespace :spec do 
+
+    desc 'Run all the unit test'
+    Rake::TestTask.new(:unit) do |t|
+        t.pattern = 'specs/unit/*_spec.rb'
+        t.warning = false
+    end
+
+    
+    desc 'Run all the api test'
+    Rake::TestTask.new(:api) do |t|
+        t.pattern = 'specs/integration/*_spec.rb'
+        t.warning = false
+    end
+end
+
+namespace :test do 
+    desc 'it does a thing'
+    task :work, [:option, :foo, :bar] do |task, args|
+        puts "works", args
+    end
 end
 
 task :console do

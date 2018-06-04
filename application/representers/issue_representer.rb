@@ -1,5 +1,6 @@
 require_relative './account_representer.rb'
 require_relative './comment_representer.rb'
+require_relative './policies/issue_policy_representer.rb'
 
 module TalkUp
 
@@ -12,7 +13,7 @@ module TalkUp
         property :deadline
         property :process
         property :section
-
+        property :policy, extend: IssuePolicyRepresenter
         property :owner, extend: AccountRepresenter
         collection :collaborators, extend: AccountRepresenter
         collection :comments, extend: CommentRepresenter

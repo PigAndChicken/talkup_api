@@ -17,7 +17,7 @@ module TalkUp
 
             
             plugin :whitelist_security
-            set_allowed_columns :title, :description, :section, :process, :deadline
+            set_allowed_columns :title, :description, :section, :process, :deadline, :anonymous
             plugin :association_dependencies, comments: :destroy, collaborators: :nullify
             plugin :timestamps, update_on_create: true
             plugin :uuid, field: :id

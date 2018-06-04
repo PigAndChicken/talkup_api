@@ -1,5 +1,5 @@
 ---
 - content: 'I dont agree this!'
-
+  anonymous: 0
 - content: 'I like this!'
-
+  anonymous: 1

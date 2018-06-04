@@ -9,6 +9,9 @@ module TalkUp
         property :id
         property :content
         property :commenter , extend: AccountRepresenter
+        property :issue_owner, extend: AccountRepresenter do 
+            property :username
+        end
         collection :feedbacks, extend: FeedbackRepresenter
     end
 end
