@@ -6,6 +6,8 @@ module TalkUp
         include Roar::JSON
 
         property :description
-        property :commenter , extend: AccountRepresenter
+        property :commenter , extend: AccountRepresenter do
+            property :username
+        end
     end
 end

@@ -75,7 +75,10 @@ module TalkUp
                if result.class == Hash
                    Left(Result.new(:bad_request, result))
                else
-                   Right(Result.new(:created, result))
+                    account = Repo::Account.find_by(:username, input[:username])
+                    policy = IssuePolicy.new(account, result)
+                    result.set_policy(policy)
+                    Right(Result.new(:created, result))
                end 
             end
         end

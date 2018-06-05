@@ -14,8 +14,12 @@ module TalkUp
         property :process
         property :section
         property :policy, extend: IssuePolicyRepresenter
-        property :owner, extend: AccountRepresenter
-        collection :collaborators, extend: AccountRepresenter
+        property :owner, extend: AccountRepresenter do
+            property :username
+        end
+        collection :collaborators, extend: AccountRepresenter do
+            property :username
+        end
         collection :comments, extend: CommentRepresenter
 
     end
