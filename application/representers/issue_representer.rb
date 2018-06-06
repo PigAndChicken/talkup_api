@@ -13,7 +13,7 @@ module TalkUp
         property :deadline
         property :process
         property :section
-        property :policy, extend: IssuePolicyRepresenter
+        property :policy, extend: IssuePolicyRepresenter 
         property :owner, extend: AccountRepresenter do
             property :username
         end

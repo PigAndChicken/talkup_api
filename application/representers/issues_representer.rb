@@ -1,6 +1,6 @@
 require_relative './account_representer.rb'
 require_relative './issue_representer.rb'
-
+    
 module TalkUp
 
     class IssuesRepresenter < Roar::Decorator
@@ -9,12 +9,12 @@ module TalkUp
         collection :issues, extend: IssueRepresenter do 
             property :id
             property :title
-            #property :description
             property :deadline
             property :process
             property :section
-
-            property :owner, extend: AccountRepresenter
+            property :policy, extend: IssuePolicyRepresenter do 
+                property :can_view
+            end
         end
     end
 end

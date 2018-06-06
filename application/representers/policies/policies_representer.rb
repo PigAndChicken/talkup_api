@@ -5,7 +5,7 @@ module TalkUp
     class PoliciesRepresenter < Roar::Decorator
         include Roar::JSON
 
-        property :issue_policy, extend: IssuePolicyRepresenter
+        property :issue_policy, extend: IssuePolicyRepresenter, class: OpenStruct
 
     end
     

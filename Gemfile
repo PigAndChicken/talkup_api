@@ -43,6 +43,9 @@ gem 'econfig'
 #Hash symbolify
 gem 'facets'
 
+#JSON parse
+gem 'fast_jsonapi'
+
 
 group :development, :test do 
     #Database 

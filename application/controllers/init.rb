@@ -6,3 +6,4 @@ Dir.glob("#{File.dirname(__FILE__)}/*.rb").each do |file|
 end
 
 require_relative './accounts/authenticate.rb'
+require_relative './comments/init.rb'

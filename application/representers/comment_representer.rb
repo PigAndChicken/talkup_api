@@ -1,5 +1,6 @@
 require_relative './account_representer.rb'
 require_relative './feedback_representer.rb'
+require_relative './policies/comment_policy_representer.rb'
 
 module TalkUp
 
@@ -8,6 +9,7 @@ module TalkUp
 
         property :id
         property :content
+        property :policy, extend: CommentPolicyRepresenter
         property :commenter , extend: AccountRepresenter do
             property :username
         end

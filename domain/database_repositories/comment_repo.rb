@@ -35,7 +35,11 @@ module TalkUp
             #delete
             def self.delete(comment_id)
                 comment = Database::CommentOrm.first(id: comment_id)
-                comment.destroy
+                if comment.destroy
+                    true
+                else
+                    false
+                end
             end
 
             def self.rebuild_entity(db_record)

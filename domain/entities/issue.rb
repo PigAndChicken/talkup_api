@@ -21,11 +21,14 @@ module TalkUp
             attribute :collaborators, Types::Strict::Array.member(Entity::Account).optional
             attribute :comments, Types::Strict::Array.member(Entity::Comment).optional
 
-            def set_policy(policy)
+            def set_policy(account)
+                policy = IssuePolicy.new(account, Repo::Issue.find_by(:id, @id)[0])
                 @policy = policy
             end
 
             def policy
+                return 'please set policy' unless @policy
+                    
                 OpenStruct.new(@policy.summary)
             end
 

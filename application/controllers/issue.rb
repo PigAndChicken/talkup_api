@@ -7,7 +7,8 @@ module TalkUp
         route('issues') do |routing|
 
             routing.on String do |section|
-                result = IssueService.all(section)
+                data = {section:section, username: @auth_account}
+                result = IssueService::All.new.call(data)
                 representer_response(result, IssuesRepresenter) { Issues.new(result.value.message) }
             end
 

@@ -1,6 +1,6 @@
 require 'dry-monads'
 require 'dry/transaction'
-require_relative './verify_container.rb'
+require_relative '../verify_container.rb'
 
 module TalkUp
 
@@ -17,9 +17,10 @@ module TalkUp
             def add_comment(input)
                 result=  input[:account].add_comment_to(input[:issue_id], input[:comment_data])
                 if result.class == Hash
-                   Left(Result.new(:bad_request, result))
+                    Left(Result.new(:bad_request, result))
                 else
-                   Right(Result.new(:created, result))
+                    result.set_policy(Repo::Account.find_by(:username, input[:username]))
+                    Right(Result.new(:created, result))
                 end 
             end
         end

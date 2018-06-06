@@ -31,5 +31,15 @@ describe 'Test TalkUp Web API' do
             end
         end
 
+        describe 'Comment Delete' do 
+            it 'It should be able to delete a comment' do 
+                data = {'username' => @account.username, 'issue_id' => @issue.id, 'comment_id' => DATA[:comments][0]}
+                post 'api/v0.1/comment/delete', data.to_json, @req_header
+                
+                result = JSON.parse last_response.body
+                _(last_response.status).must_equal 200
+            end
+        end
+
     end
 end
