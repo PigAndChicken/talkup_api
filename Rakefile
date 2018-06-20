@@ -87,10 +87,10 @@ namespace :db do
     
     desc 'Delete dev or test database file'
     task :wipe do
-        # if app.environment == :production
-        #     puts 'Cannot wipe production database!'
-        #     return
-        # end
+        if app.environment == :production
+            puts 'Cannot wipe production database!'
+            return
+        end
 
         FileUtils.rm(app.config.DB_FILENAME)
         puts "Deleted #{app.config.DB_FILENAME}"
