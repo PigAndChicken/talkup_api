@@ -4,3 +4,4 @@ end
 
 require_relative './issue/init.rb'
 require_relative './comment/init.rb'
+require_relative './account/init.rb'

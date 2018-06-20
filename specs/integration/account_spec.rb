@@ -97,5 +97,17 @@ describe 'Test TalkUp Web API' do
                 _(last_response.status).must_equal 404
             end
         end
+
+        describe 'Getting Collaborator' do 
+
+            it 'HAPPY: should be able to get collaborators detail' do 
+                # account = Repo::Account.create(DATA[:accounts][0])
+                # get "api/v0.1/collaborators/#{account.username}"
+
+                # result = JSON.parse last_response.body
+                # _(last_response.status).must_equal 200
+                
+            end
+        end
     end
 end

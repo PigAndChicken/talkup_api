@@ -9,6 +9,7 @@ module TalkUp
 
         property :id
         property :title
+        property :anonymous
         property :description
         property :deadline
         property :process

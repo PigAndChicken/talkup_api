@@ -29,7 +29,11 @@ module TalkUp
             def self.update(comment_id, entity)
                 comment = Database::CommentOrm.first(id: comment_id)
                 comment.update(entity.to_h)
-                comment.save
+                if comment.save
+                    rebuild_entity(comment)
+                else
+                    nil
+                end
             end
 
             #delete

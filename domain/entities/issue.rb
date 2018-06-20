@@ -1,3 +1,4 @@
+
 require 'dry-struct'
 require_relative './comment.rb'
 require_relative './account.rb'
@@ -30,6 +31,10 @@ module TalkUp
                 return 'please set policy' unless @policy
                     
                 OpenStruct.new(@policy.summary)
+            end
+
+            def can_view
+                @policy.can_view?
             end
 
         end 

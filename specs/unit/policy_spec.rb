@@ -8,7 +8,7 @@ describe 'Test Issues Policy' do
             @shelly = TalkUp::Repo::Account.create(DATA[:accounts][1])
             vic = TalkUp::Repo::Account.new(DATA[:accounts][0][:username])
             issue = vic.create_issue(DATA[:issues][1])
-            vic.add_collaborators_to(issue.id, [{username: @shelly.username}])
+            vic.add_collaborators_to(issue.id, [@shelly.username])
             @issue = TalkUp::Repo::Issue.find_by(:id, issue.id)[0]
     end
 

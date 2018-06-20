@@ -7,7 +7,7 @@ module TalkUp
 
             routing.post do
                 data = JsonRequestBody.parse_sym(routing.body.read)
-                data[:username] = @auth_account
+                data[:username] = @auth_account.username
                 result = CommentService::Delete.new.call(data)
                 http_response = HttpResponseRepresneter.new(result.value)
                 response.status = http_response.http_code

@@ -7,14 +7,9 @@ module TalkUp
         class Account < Dry::Struct
 
             attribute :id, Types::Strict::Int
+            attribute :type, Types::Strict::String
             attribute :username, Types::Strict::String
             attribute :email, Types::Strict::String
-            attribute :password_hash, Types::Strict::String
-            attribute :salt, Types::Strict::String
-            
-
-            def policy
-            end
 
             def token
                 AuthToken.create(@username)
@@ -27,11 +22,6 @@ module TalkUp
 
             def comments
                 Repo::Comment.find_by(:commenter_id, @id)
-            end
-
-            def password?(try_password)
-                try_hash = SecureDB.hash_password(@salt, try_password)
-                try_hash == @password_hash
             end
 
         end

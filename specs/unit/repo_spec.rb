@@ -21,7 +21,6 @@ describe 'Test all Repo' do
             vic = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][0][:username])
             shelly = TalkUp::Repo::Account.find_by(:username, DATA[:accounts][1][:username])
 
-            _(vic).must_be_instance_of TalkUp::Entity::Account
             _(shelly.username).must_equal DATA[:accounts][1][:username]
         end
 
@@ -33,8 +32,7 @@ describe 'Test all Repo' do
             _(issue).must_be_instance_of TalkUp::Entity::Issue
             _(issue.title).must_equal DATA[:issues][0][:title]
             
-            issue = vic.add_collaborators_to(issue.id, [{:email => shelly.email}])
-            _(issue.collaborators[0]).must_be_instance_of TalkUp::Entity::Account
+            issue = vic.add_collaborators_to(issue.id, [shelly.username])
             
             comment = vic.add_comment_to(issue.id, DATA[:comments][0])
             _(comment).must_be_instance_of TalkUp::Entity::Comment
@@ -81,5 +79,17 @@ describe 'Test all Repo' do
             _(issue).must_be_nil
         end
 
+    end
+
+    describe 'Getting Informaiton for different model' do 
+
+        it 'HAPPY : should be able to get collaborators' do 
+            username = DATA[:accounts][0][:username]
+            account = Repo::Account.find_by(:username, username)
+            collaborators = Repo::Account.collaborators(username)
+
+            _(collaborators.include?(account)).must_equal false 
+
+        end
     end
 end

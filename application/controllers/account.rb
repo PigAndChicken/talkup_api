@@ -35,10 +35,6 @@ module TalkUp
                 end
             end
 
-            routing.get do 
-                
-            end
-
         end
 
     end

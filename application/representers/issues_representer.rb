@@ -1,4 +1,3 @@
-require_relative './account_representer.rb'
 require_relative './issue_representer.rb'
     
 module TalkUp
@@ -12,9 +11,7 @@ module TalkUp
             property :deadline
             property :process
             property :section
-            property :policy, extend: IssuePolicyRepresenter do 
-                property :can_view
-            end
+            property :can_view
         end
     end
 end

@@ -13,7 +13,11 @@ module TalkUp
             
             #user behavior
             def create_issue(issue_data)
-                Repo::Issue.create_by(@account, issue_data)
+                collaborators = issue_data[:collaborators]
+                issue_data.select! { |k, v| k != :collaborators }
+                issue = Repo::Issue.create_by(@account, issue_data)
+                issue = add_collaborators_to(issue.id, collaborators) unless collaborators.nil?
+                issue
             end
 
             def add_collaborators_to(issue_id, collaborators)
@@ -63,13 +67,23 @@ module TalkUp
 
             def self.rebuild_entity(db_record)
                 return nil unless db_record
-                Entity::Account.new(
-                    id: db_record.id,
-                    username: db_record.username,
-                    email: db_record.email,
-                    password_hash: db_record.password_hash,
-                    salt: db_record.salt
-                )
+                if db_record.type == 'email'
+                    Entity::EmailAccount.new(
+                        id: db_record.id,
+                        username: db_record.username,
+                        email: db_record.email,
+                        password_hash: db_record.password_hash,
+                        salt: db_record.salt,
+                        type: db_record.type
+                    )
+                else
+                    Entity::SsoAccount.new(
+                        id: db_record.id,
+                        username: db_record.username,
+                        email: db_record.email,
+                        type: db_record.type
+                    )
+                end
             end
         end
     end

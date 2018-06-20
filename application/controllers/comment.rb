@@ -10,8 +10,15 @@ module TalkUp
 
             routing.post do 
                 data = JsonRequestBody.parse_sym(routing.body.read)
-                data[:username] = @auth_account
+                data[:username] = @auth_account.username
                 result = CommentService::Create.new.call(data)
+                representer_response(result, CommentRepresenter)
+            end
+
+            routing.put do
+                data = JsonRequestBody.parse_sym(routing.body.read)
+                data[:username] = @auth_account.username
+                result = CommentService::Edit.new.call(data)
                 representer_response(result, CommentRepresenter)
             end
 

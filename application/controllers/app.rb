@@ -20,9 +20,10 @@ module TalkUp
         def secure_request?(routing)
             routing.scheme.casecmp(Api.config.SECURE_SCHEME).zero?
         end
-
+ 
         route do |routing|
-            @auth_account = authenticated_account( routing.headers )
+            # @auth_account = authenticated_account( routing.headers )
+            @auth_account = Repo::Account.find_by(:username, authenticated_account( routing.headers ))
             response['Content_Type'] = 'application/json'
             secure_request?(routing) || routing.halt(403, {message: 'TLS/SSL Requested'}.to_json)
             app = Api

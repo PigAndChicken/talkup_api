@@ -17,15 +17,11 @@ module TalkUp
                         key: :commenter_id
 
             plugin :whitelist_security
-            set_allowed_columns :username, :email, :password
+            set_allowed_columns :username, :email, :password, :type
             plugin :association_dependencies, owned_issues: :destroy, collaborations: :nullify, feedbacks: :destroy, comments: :destroy
             plugin :timestamps, update_on_create: true
             
             plugin :validation_helpers
-
-            def issues 
-                owned_issues + collaborations
-            end
 
             def password=(new_password)
                 self.salt= SecureDB.new_salt

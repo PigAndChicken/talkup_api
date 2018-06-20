@@ -13,7 +13,7 @@ module TalkUp
             step :set_policy
 
             def get_all_issue(input)
-                issues = Repo::Issue.all(input[:section])
+                issues = Repo::Issue.all(input[:data])
                 if !issues.empty?
                     input[:issues] = issues
                     Right(input)
