@@ -50,7 +50,7 @@ module TalkUp
                     )
             Right(Result.new(:ok, "Email has been sent."))
             rescue StandardError 
-                Left(Result.new(:bad_request, "Email address not found."))
+            Left(Result.new(:bad_request, "Email address not found."))
         end
     end
 end
