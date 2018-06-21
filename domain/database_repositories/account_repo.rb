@@ -13,15 +13,19 @@ module TalkUp
             
             #user behavior
             def create_issue(issue_data)
-                collaborators = issue_data[:collaborators]
-                issue_data.select! { |k, v| k != :collaborators }
-                issue = Repo::Issue.create_by(@account, issue_data)
-                issue = add_collaborators_to(issue.id, collaborators) unless collaborators.nil?
-                issue
+                Repo::Issue.create_by(@account, issue_data)
             end
 
             def add_collaborators_to(issue_id, collaborators)
-                Repo::Issue.add_collaborators(issue_id, collaborators)
+                issue = Repo::Issue.add_collaborators(issue_id, collaborators)
+                return nil if issue.nil?
+                issue.collaborators
+            end
+
+            def remove_collaborator(issue_id, collaborator)
+                collaborator = Repo::Issue.remove_collaborator(issue_id, collaborator)
+                return nil if collaborator.nil?
+                Account.rebuild_entity(collaborator)
             end
 
             def add_comment_to(issue_id, comment_data)

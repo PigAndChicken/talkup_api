@@ -6,10 +6,10 @@ module TalkUp
         route('authenticate', 'accounts') do |routing|
 
             routing.post 'sso_account' do
-                begin 
-                    token = JsonRequestBody.parse_sym(request.body.read)
-                    input = {access_token: token[:access_token], config: Api.config}
-                    puts input
+                begin
+                    access_token = JSON.parse(request.body.read)['access_token']
+                    token = SignedRequest.new(Api.config).parse(access_token.to_json)
+                    input = {access_token: token, config: Api.config}
                     auth_account = AuthSsoAccount.new.call(input)
                     representer_response(auth_account, AccountRepresenter)
                 rescue
@@ -19,7 +19,7 @@ module TalkUp
 
             routing.post 'email_account' do
                     begin 
-                        credentials = JsonRequestBody.parse_sym(request.body.read)
+                        credentials = SignedRequest.new(Api.config).parse(request.body.read)
                         auth_account = AccountService.authenticate(credentials)
                         representer_response(auth_account, AccountRepresenter)
                     rescue

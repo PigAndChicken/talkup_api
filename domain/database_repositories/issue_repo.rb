@@ -27,8 +27,18 @@ module TalkUp
                     db_collaborator = Database::AccountOrm.where(username: collaborator).all[0]
                     db_issue.add_collaborator(db_collaborator)
                 end
-
                 rebuild_entity(db_issue)
+                rescue 
+                    return nil
+            end
+
+            def self.remove_collaborator(issue_id, collaborator)
+                db_issue = Database::IssueOrm.first(id: issue_id)
+                collaborator = Database::AccountOrm.first(username: collaborator)
+                db_collaborator = db_issue.remove_collaborator(collaborator)
+                db_collaborator
+                rescue
+                    return nil
             end
             
             #read

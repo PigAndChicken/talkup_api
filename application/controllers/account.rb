@@ -9,7 +9,7 @@ module TalkUp
             end
 
             routing.post do 
-                account_data = JsonRequestBody.parse_sym(request.body.read)
+                account_data = SignedRequest.new(Api.config).parse(request.body.read)
                 if account_data[:password].nil?
                     account_data[:sendgrid] = Api.config
                     result = EmailVerification.new.call(account_data)    

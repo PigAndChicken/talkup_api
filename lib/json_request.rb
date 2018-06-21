@@ -3,6 +3,7 @@ class JsonRequestBody
 
     def self.parse_sym(json_str)
         parsed = JSON.parse json_str
+        return parsed if parsed.class == String
         recur_sym(parsed)
     end
 

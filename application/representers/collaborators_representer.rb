@@ -1,12 +1,10 @@
-require_relative './account_representer.rb'
+require_relative './collaborator_representer.rb'
 
 module TalkUp
 
     class CollaboratorsRepresenter < Roar::Decorator
         include Roar::JSON
         
-        collection :collaborators, extend: AccountRepresenter do 
-            property :username
-        end
+        collection :collaborators, extend: CollaboratorRepresenter
     end
 end

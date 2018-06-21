@@ -12,7 +12,7 @@ module TalkUp
         end
 
         def can_comment?
-            account_is_collaborators? || account_is_owner?
+           ( account_is_collaborators? || account_is_owner? ) && !issue_deadline_expired?
         end
 
         def can_comment_anonymously?
@@ -70,6 +70,10 @@ module TalkUp
 
         def issue_anonymous?
             @issue.anonymous == 1
+        end
+
+        def issue_deadline_expired?
+            Time.now > Time.at(@issue.deadline)
         end
 
     end

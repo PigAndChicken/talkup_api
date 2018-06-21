@@ -35,6 +35,11 @@ namespace :newkey do
         require './lib/secure_db.rb'
         puts "DB_KEY: #{SecureDB.generate_key}"
     end
+
+    task :keypair do 
+        require './lib/signed_request.rb'
+        puts "#{SignedRequest.generate_keypair}"
+    end
 end
 
 

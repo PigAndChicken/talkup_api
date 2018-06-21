@@ -21,14 +21,25 @@ module TalkUp
 
         route('issue') do |routing|
 
-            routing.post do 
-                data = JsonRequestBody.parse_sym(routing.body.read)
-                data[:username] = @auth_account.username
-                result=  IssueService::Create.new.call(data)
-                representer_response(result, IssueRepresenter)
-            end
-            
             routing.on String do |issue_id|
+
+                routing.on 'collaborators' do 
+                    
+                    routing.post do 
+                        collaborators = JsonRequestBody.parse_sym(routing.body.read)[:collaborators]
+                        input = {issue_id: issue_id, collaborators: collaborators, username: @auth_account.username}
+                        result = IssueService::AddCollaborators.new.call(input)
+                        representer_response(result, CollaboratorsRepresenter) { Collaborators.new(result.value.message) }
+                    end
+
+                    routing.delete do 
+                        collaborator = JSON.parse routing.body.read
+                        input = {issue_id: issue_id, collaborator: collaborator, username: @auth_account.username}
+                        puts input
+                        result = IssueService::RemoveCollaborator.new.call(input)
+                        representer_response(result, CollaboratorRepresenter)  
+                    end
+                end
 
                 routing.get do
                      input = {:issue_id => issue_id, :username => @auth_account.username}
@@ -49,6 +60,13 @@ module TalkUp
                     representer_response(result, IssueRepresenter)
                 end
 
+            end
+
+            routing.post do 
+                data = JsonRequestBody.parse_sym(routing.body.read)
+                data[:username] = @auth_account.username
+                result=  IssueService::Create.new.call(data)
+                representer_response(result, IssueRepresenter)
             end
          
 
