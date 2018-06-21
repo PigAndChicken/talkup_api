@@ -16,7 +16,7 @@ module TalkUp
         end
 
         def can_feedback?
-            !account_is_commenter? || !account_already_feedback?
+            !account_is_commenter? 
         end
 
         def summary
@@ -36,9 +36,9 @@ module TalkUp
             @account.username == @comment.commenter.username
         end
 
-        def account_already_feedback?
-            @comment.feedbacks.any? {|f| f.commenter.username == @account.username}
-        end
+        # def account_already_feedback?
+        #     @comment.feedbacks.any? {|f| f.commenter.username == @account.username}
+        # end
 
     end
     
