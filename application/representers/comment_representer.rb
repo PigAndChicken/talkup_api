@@ -16,6 +16,8 @@ module TalkUp
         property :issue_owner, extend: AccountRepresenter do 
             property :username
         end
-        collection :feedbacks, extend: FeedbackRepresenter
+        collection :feedbacks, extend: FeedbackRepresenter do
+            property :description
+        end
     end
 end

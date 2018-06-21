@@ -2,6 +2,7 @@
 require 'dry-struct'
 require_relative './comment.rb'
 require_relative './account.rb'
+require_relative './feedback_description.rb'
 
 module TalkUp
     module Entity
@@ -21,6 +22,7 @@ module TalkUp
             attribute :owner, Entity::Account
             attribute :collaborators, Types::Strict::Array.member(Entity::Account).optional
             attribute :comments, Types::Strict::Array.member(Entity::Comment).optional
+            attribute :feedback_description, Types::Strict::Array.member(Entity::FeedbackDescription)
 
             def set_policy(account)
                 policy = IssuePolicy.new(account, Repo::Issue.find_by(:id, @id)[0])

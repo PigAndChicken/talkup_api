@@ -35,7 +35,6 @@ module TalkUp
                     routing.delete do 
                         collaborator = JSON.parse routing.body.read
                         input = {issue_id: issue_id, collaborator: collaborator, username: @auth_account.username}
-                        puts input
                         result = IssueService::RemoveCollaborator.new.call(input)
                         representer_response(result, CollaboratorRepresenter)  
                     end

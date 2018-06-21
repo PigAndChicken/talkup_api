@@ -1,4 +1,5 @@
 require_relative './account_representer.rb'
+require_relative './comment_representer.rb'
 
 module TalkUp
 

@@ -80,6 +80,7 @@ module TalkUp
             def self.rebuild_entity(db_record)
                 return nil unless db_record
                 elements = rebuild_elements(db_record)
+                feedback_description = Repo::Feedback.all_description
 
                 Entity::Issue.new(
                     id: db_record.id,
@@ -93,7 +94,8 @@ module TalkUp
                     comments: elements[:comments],
                     collaborators: elements[:collaborators],
                     created_at: db_record.created_at,
-                    updated_at: db_record.updated_at
+                    updated_at: db_record.updated_at,
+                    feedback_description: feedback_description
                 )
             end
         end

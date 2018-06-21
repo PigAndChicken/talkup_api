@@ -7,6 +7,10 @@ module TalkUp
             routing.on 'delete' do
                 routing.route('delete', 'comment')
             end
+            
+            routing.on 'feedback' do 
+                routing.route('feedback', 'comment')
+            end
 
             routing.post do 
                 data = JsonRequestBody.parse_sym(routing.body.read)

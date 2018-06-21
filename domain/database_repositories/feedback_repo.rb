@@ -1,3 +1,5 @@
+
+
 module TalkUp
 
     module Repo
@@ -8,6 +10,14 @@ module TalkUp
             def self.all_with(col, value)
                 Database::FeedbackOrm.where({col=>value}).all.map do |feedback|
                     rebuild_entity(feedback)
+                end
+            end
+
+            def self.all_description
+                Database::FeedbackDescriptionOrm.all.map do |feedback_description|
+                    Entity::FeedbackDescription.new(
+                        description: feedback_description.description
+                    )
                 end
             end
 
