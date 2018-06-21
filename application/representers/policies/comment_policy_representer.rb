@@ -5,6 +5,7 @@ module TalkUp
 
         property :can_edit
         property :can_delete
+        property :can_feedback
 
     end
     

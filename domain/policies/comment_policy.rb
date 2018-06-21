@@ -15,10 +15,15 @@ module TalkUp
             account_is_commenter? || account_is_issue_owner?
         end
 
+        def can_feedback?
+            !account_is_commenter? || !account_already_feedback?
+        end
+
         def summary
             {
                 can_edit: can_edit?,
-                can_delete: can_delete?
+                can_delete: can_delete?,
+                can_feedback: can_feedback?
             }
         end
 
@@ -29,6 +34,10 @@ module TalkUp
 
         def account_is_commenter?
             @account.username == @comment.commenter.username
+        end
+
+        def account_already_feedback?
+            @comment.feedbacks.any? {|f| f.commenter.username == @account.username}
         end
 
     end
