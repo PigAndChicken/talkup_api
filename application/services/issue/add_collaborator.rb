@@ -26,6 +26,7 @@ module TalkUp
             end
 
             def add_collaborators(input)
+                puts input[:collaborators]
                 result = input[:account].add_collaborators_to(input[:issue_id], input[:collaborators])
                 if result.nil?
                     Left(Result.new(:bad_request, 'Collaborators not found'))

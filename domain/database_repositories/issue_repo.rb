@@ -24,11 +24,12 @@ module TalkUp
                 db_issue = Database::IssueOrm.first(id: issue_id)
                 
                 collaborators.each do |collaborator|
-                    db_collaborator = Database::AccountOrm.where(username: collaborator).all[0]
+                    db_collaborator = Database::AccountOrm.first(username: collaborator)
                     db_issue.add_collaborator(db_collaborator)
                 end
                 rebuild_entity(db_issue)
-                rescue 
+                rescue => e
+                    puts e
                     return nil
             end
 
