@@ -28,6 +28,7 @@ module TalkUp
                     routing.post do 
                         collaborators = JsonRequestBody.parse_sym(routing.body.read)[:collaborators]
                         input = {issue_id: issue_id, collaborators: collaborators, username: @auth_account.username}
+                        puts input
                         result = IssueService::AddCollaborators.new.call(input)
                         representer_response(result, CollaboratorsRepresenter) { Collaborators.new(result.value.message) }
                     end
