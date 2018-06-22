@@ -34,7 +34,8 @@ module TalkUp
         include Dry::Transaction::Operation
 
         def call(input)
-            if Repo::Comment.find_by(:id, input[:comment_id])[0] != nil 
+            input[:comment] = Repo::Comment.find_by(:id, input[:comment_id])[0]
+            if  input[:comment] != nil 
                 Right(input)
             else
                 Left(Result.new(:bad_request, 'Comment Information Error.'))

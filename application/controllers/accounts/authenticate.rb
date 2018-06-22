@@ -12,7 +12,8 @@ module TalkUp
                     input = {access_token: token, config: Api.config}
                     auth_account = AuthSsoAccount.new.call(input)
                     representer_response(auth_account, AccountRepresenter)
-                rescue
+                rescue => e
+                    puts e
                     routing.halt '403', { errors: {account: ['Invalid credentials'] } }.to_json
                 end
             end
