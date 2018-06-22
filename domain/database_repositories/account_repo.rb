@@ -19,7 +19,8 @@ module TalkUp
             def add_collaborators_to(issue_id, collaborators)
                 issue = Repo::Issue.add_collaborators(issue_id, collaborators)
                 return nil if issue.nil?
-                issue.collaborators
+                puts collaborators
+                issue.collaborators.select {|c| collaborators.include?(c.username)}
             end
 
             def remove_collaborator(issue_id, collaborator)

@@ -6,7 +6,7 @@
 
 #     module IssueService
         
-#         class AddCollaborators   
+#         class GroupingComment   
 #             include Dry::Transaction 
 #             include Dry::Transaction(container: Container)
             
